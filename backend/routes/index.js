@@ -13,6 +13,8 @@ router.get('/', TelaInitialController.show)
 
 router.post('/user', UserController.create)
 router.post('/login', UserController.login)
+router.get('/list', UserController.list)
+router.post('/authlogin', UserController.authLogin)
 
 router.post('/admin/materia', WithAuth, AdminController.createSubjects)
 router.get('/admin/materia', WithAuth, AdminController.showSubjects)

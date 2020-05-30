@@ -18,7 +18,7 @@ module.exports = {
   async showSubjects(req, res) {
     const subject = await connection('subjects').select('*')
 
-    res.status(200).json({ subject })
+    res.status(200).json( subject )
   },
   //Sub materia
   async createSub_Subjects(req, res) {

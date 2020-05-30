@@ -12,21 +12,25 @@ module.exports = {
             const checkEmail = await connection('users')
                 .where('email', email).first()
 
+
             if (checkEmail) {
                 res.status(401).json({ message: 'Email já cadastrado!' })
+
+            } else {
+
+                const hasePassword = await bcrypt.hash(password, 10)
+                const token = jwt.sign({ email }, secret, { expiresIn: '1d' })
+               const [id] = await connection('users').insert({
+                    name,
+                    email,
+                    hasePassword,
+                    type
+                })              
+                return res.status(201).json({ token, type, id })
             }
 
-            const hasePassword = await bcrypt.hash(password, 10)
-
-            await connection('users').insert({
-                name,
-                email,
-                hasePassword,
-                type
-            })
-            return res.status(201).json(name)
         } catch (error) {
-            res.status(500).json({ message: 'Erro ao cadastrar!' })
+            res.status(500).json({ message: 'Erro ao cadastrar!' })            
         }
     },
     async login(req, res) {
@@ -38,7 +42,7 @@ module.exports = {
 
             if (await bcrypt.compare(hasePassword, user.hasePassword)) {
                 const token = jwt.sign({ email }, secret, { expiresIn: '1d' })
-                res.status(200).json({token, user})
+                res.status(200).json({ token, user })
             } else {
                 res.status(500).json({ message: 'Email e Senha invalida!' })
             }
@@ -46,5 +50,38 @@ module.exports = {
         } catch (error) {
             res.status(500).json({ message: 'Email e Senha invalida!' })
         }
+    },
+    async list(req, res) {
+        try {
+
+            const user = await connection('users').select('*')
+            res.status(200).json(user)
+        } catch (error) {
+            res.status(500).json({ message: 'Email e Senha invalida!' })
+        }
+    },
+    async authLogin(req, res) {
+        const token = req.headers['x-access-token']
+        
+        if (!token) {
+            res.status(401).json({ message: 'Login não autorizado' })
+        }else{
+
+               try {
+
+                const decodedToken = await jwt.verify(token, secret)
+
+                const user = await connection('users')
+                    .where('email', decodedToken.email)
+                    .first()
+                res.status(200).json(user)
+
+            } catch (error) {         
+                res.status(500).json({ error })
+            } 
+        }
+        
+
     }
 }
+

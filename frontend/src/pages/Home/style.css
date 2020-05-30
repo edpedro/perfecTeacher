@@ -1,0 +1,13 @@
+.home img {
+
+  width: 100%;
+  opacity : 0.9;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  
+}
+.home{
+  width: 100%;
+  background-color: #5FCF80;
+}
