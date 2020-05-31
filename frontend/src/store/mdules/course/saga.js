@@ -10,11 +10,12 @@ import { alertShowPanelMessage } from '../alert/actions'
 
 
 import api from '../../../services/api'
-// import history from '../../../services/history'
+import history from '../../../services/history'
 
 const token = localStorage.getItem('token')
 
 function* createCourse({ data }) {
+
   try {
 
     const response = yield call(api.post, 'curso', data, {
@@ -28,7 +29,7 @@ function* createCourse({ data }) {
       severity: 'success',
       message: 'Cadastrado com sucesso!!'
     }))
-
+    history.push("/painel")
   } catch (error) {
     console.log(error)
   }
@@ -65,6 +66,7 @@ function* GetSub_Subject() {
   }
 }
 function* GetAdvertisement({data}) { 
+
     try {
     const response = yield call(api.get, `curso/${data}`, {
       headers: {

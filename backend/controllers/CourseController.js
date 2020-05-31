@@ -20,10 +20,11 @@ module.exports = {
         offsetValue,
         webValue,
         packageValue,
-        user_id,
         subjects_id,
-        sub_subjects_id } = req.body
-
+        sub_subjects_id,
+        user_id,
+         } = req.body
+       
       //Adicionar curso 
       const course = await connetcion('courses').insert({
         competence,
@@ -50,8 +51,6 @@ module.exports = {
         uf,
         Street,
       })
-
-
 
       return res.status(201).json(course)
     } catch (error) {

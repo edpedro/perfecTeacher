@@ -1,4 +1,4 @@
-export function AddCourse(data){
+export function AddCourse(data, id){
   return{
     type: "CREATE_COURSE",
     data

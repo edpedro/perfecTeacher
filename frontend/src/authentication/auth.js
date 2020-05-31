@@ -1,5 +1,5 @@
-export const isAuthenticated = (value) =>{
-  if(value > 0){
+export const isAuthenticated = () =>{
+  if(localStorage.length > 0){
     return true
   }else{
     return false

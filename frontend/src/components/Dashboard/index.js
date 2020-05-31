@@ -18,8 +18,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
+import MainListItems from './MainListItems'
+import SecondaryListItems from './SecondaryListItems'
 
-import { mainListItems, secondaryListItems } from './listItems';
+
 import { alertHidePanelMessage } from '../../store/mdules/alert/actions'
 import AlertShow from '../Alert/showPanel'
 import { GetAdverts } from '../../store/mdules/course/actions'
@@ -110,11 +112,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard({children}) {
   const user = useSelector(state => state.users.user)
-
+  const id = useSelector(state => state.users.id)
+ 
   const classes = useStyles();
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(true);
-
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -129,8 +131,8 @@ export default function Dashboard({children}) {
     }, 2500)
   })
   useEffect(() => {
-    if (user) {
-      dispatch(GetAdverts(user.id))
+    if (id) {
+      dispatch(GetAdverts(id))
     }
   })
   return (
@@ -182,9 +184,9 @@ export default function Dashboard({children}) {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List><MainListItems/></List>
         <Divider />
-        <List>{secondaryListItems}</List>
+        <List><SecondaryListItems/></List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

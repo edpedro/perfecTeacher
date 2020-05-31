@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Subpanel() {
   const classes = useStyles();
-  const data = useSelector(state => state.course.adverts)
+  const data = useSelector(state => state.course.adverts) 
 
   return (
     <Fragment>

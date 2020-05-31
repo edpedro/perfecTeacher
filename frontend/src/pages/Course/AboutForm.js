@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AboutForm(props) {
   const classes = useStyles();
   const data = useSelector(state => state.course.adverts)
-  console.log(data)
+ 
   function handleChange(event) {
     const { name, value } = event.target
     props.onChange({ ...props.data, [name]: value })

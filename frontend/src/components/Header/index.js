@@ -6,10 +6,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import './style.css'
 
 import logo from '../../assets/logo2019-1.png'
@@ -64,33 +60,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Header() {
   const isLogger = useSelector(state => state.users.user)
-  const id = useSelector(state => state.users.id)
+  const classes = useStyles();
 
   const dispatch = useDispatch()
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-
-  // const Logger = useCallback(async () => {
-  //   if (!isLogger) {
-  //     await dispatch(LogoutUser())
-  //   }
-
-  // }, [dispatch])
-
-  // useEffect(() => {
-  //   if (!isLogger) {
-   
-  //   }
-  // }, [isLogger, dispatch])
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  function handleLogout(event) {
-    event.preventDefault()
-    setAnchorEl(null);
+  function handleLogout() {
     dispatch(LogoutUser())
   }
 
@@ -104,6 +77,9 @@ function Header() {
             </Link>
           </Typography>
           <Typography className={classes.nav}>
+            <Link to="/" color="borderColor: '#0062cc'," className={classes.link}>
+              Inicio
+            </Link>
             <Link to="/professor" color="borderColor: '#0062cc'," className={classes.link}>
               Professor
             </Link>
@@ -114,57 +90,31 @@ function Header() {
               Fala conosco
             </Link>
           </Typography>
-
-          {isLogger && isAuthenticated(id) ? (
+          {isLogger && isAuthenticated(isLogger) ?
             <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={open}
-              >
-                {/* <MenuItem>
-              <Link to="/falaconosco" color="inherit" className={classes.link1}>
-                Painel
-            </Link>
-              </MenuItem> */}
-                <MenuItem>{isLogger && isLogger.name}</MenuItem>
-                <MenuItem onClick={handleLogout}>Sair</MenuItem>
-              </Menu>
+              <Link to="/painel" className={classes.linkButton}>
+                <Button color="primary" className={classes.button}>Painel</Button>
+              </Link>
+              <Button variant="outlined" className={classes.button} onClick={handleLogout}>
+                Sair
+              </Button>
             </div>
-          ) : (
-              <div>
-                <Link to="/login" className={classes.linkButton}>
-                  <Button variant="outlined" className={classes.button}>
-                    Login
+            :
+            <div>
+              <Link to="/login" className={classes.linkButton}>
+                <Button variant="outlined" className={classes.button}>
+                  Login
                  </Button>
-                </Link>
-                <Link to="/register" className={classes.linkButton}>
-                  <Button variant="contained" className={classes.button1}>
-                    Cadastre-se
+              </Link>
+              <Link to="/register" className={classes.linkButton}>
+                <Button variant="contained" className={classes.button1}>
+                  Cadastre-se
                 </Button>
-                </Link>
-              </div>
-            )
+              </Link>
+            </div>
+
           }
+
         </Toolbar>
       </AppBar>
     </div>

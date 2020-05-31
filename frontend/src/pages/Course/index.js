@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -87,9 +87,10 @@ function getStepContent(step, setData, data) {
   }
 }
 
-export default function Course() {
-  const user = useSelector(state => state.users.id)
- 
+export default function Course() { 
+  const user = useSelector(state => state.users.user)
+  const id = useSelector(state => state.users.id)
+
   const [data, setData] = useState({
     subjects_id: '',
     sub_subjects_id: '',
@@ -108,8 +109,13 @@ export default function Course() {
     offsetValue: '',
     webValue: '',
     hourValue: '',
-    user_id: user,
+    
   })
+  useEffect(() =>{
+    if(user){
+      setData( {user_id: id})
+    }
+  },[setData, user, id])
 
   const dispatch = useDispatch()
   const classes = useStyles();

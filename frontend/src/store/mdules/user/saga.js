@@ -14,7 +14,7 @@ function* Register({ user }) {
     const response = yield call(() => api.post('user', user));
 
     localStorage.setItem('token', response.data.token)
-   
+
     yield put(RegisterSuccess(response.data.id))
     yield put(alertShowPanelMessage({
       severity: 'success',
@@ -40,9 +40,7 @@ function* Login({ user }) {
   try {
     const response = yield call(api.post, 'login', user)
 
-
     localStorage.setItem('token', response.data.token)
-
 
     yield put(LoginSuccess(response.data.user))
     yield put(alertShowPanelMessage({
@@ -75,15 +73,11 @@ function* AuthLogin({ user }) {
   }
 }
 function* Logout() {
-  try {
-    
-    yield localStorage.removeItem('token')
-    yield put(LogoutUserSuccess())
 
-  } catch (error) {
+  yield localStorage.removeItem('token')
+  yield put(LogoutUserSuccess())
 
-  }
-
+  history.push("/")
 }
 export default all([
   takeLatest('REGISTER', Register),
