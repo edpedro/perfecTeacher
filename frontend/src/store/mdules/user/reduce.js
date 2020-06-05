@@ -11,7 +11,7 @@ function users(state = [], action) {
         ...state,
         user: action.user
       }
-      case "LOGOUT_SUCCESS":
+    case "LOGOUT_SUCCESS":
       return {
         ...state,
         user: {}
@@ -21,7 +21,12 @@ function users(state = [], action) {
         ...state,
         user: action.user,
         id: action.user.id
-     }
+      }
+    case "UPLOAD_SUCCESS":
+      return {
+        ...state,
+        user: action.user
+      }
     default:
       return state
   }

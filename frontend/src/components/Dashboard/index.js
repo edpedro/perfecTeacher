@@ -31,11 +31,6 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-
-  },
-  toolbar: {
-
-
   },
   toolbarIcon: {
     display: 'flex',
@@ -110,10 +105,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard({children}) {
+export default function Dashboard({ children }) {
   const user = useSelector(state => state.users.user)
   const id = useSelector(state => state.users.id)
- 
+
   const classes = useStyles();
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(true);
@@ -138,7 +133,7 @@ export default function Dashboard({children}) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar className={clsx(classes.appBar, open && classes.appBarShift)} style={{ marginTop: 90 }}>
+      <AppBar className={clsx(classes.appBar, open && classes.appBarShift)} style={{ marginTop: 75 }}>
         <Toolbar className={classes.toolbar} >
           <IconButton
             edge="start"
@@ -164,7 +159,13 @@ export default function Dashboard({children}) {
               aria-haspopup="true"
               color="inherit"
             >
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+              {user && user.image ?
+                <Avatar alt="Remy Sharp"
+                  src={`http://localhost:3333/${user.image}`}
+                />
+                :
+                <Avatar alt="Remy Sharp" src="" />
+              }
             </IconButton>
             <p>{user && user.name}</p>
           </MenuItem>
@@ -184,9 +185,9 @@ export default function Dashboard({children}) {
           </IconButton>
         </div>
         <Divider />
-        <List><MainListItems/></List>
+        <List><MainListItems /></List>
         <Divider />
-        <List><SecondaryListItems/></List>
+        <List><SecondaryListItems /></List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

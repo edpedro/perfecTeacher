@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -22,24 +23,33 @@ const useStyles = makeStyles((theme) => ({
   },
   grid1: {
     flexGrow: 1,
-    textAlign: 'center',    
+    textAlign: 'center',
   },
   grid2: {
     marginBottom: 15,
     textAlign: 'center',
- 
+
   },
 }))
 
 export default function Subpanel() {
+  const user = useSelector(state => state.users.user)
+  const Anunci = useSelector(state => state.course.quant)
   const classes = useStyles();
 
   return (
     <Fragment>
       <Grid container spacing={3} >
         <Grid item xs={5}>
-          <Card className={classes.grid1} style={{marginTop:180}}> 
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
+          <Card className={classes.grid1} >            
+            {user && user.image ?
+                <Avatar alt="Remy Sharp"
+                  src={`http://localhost:3333/${user.image}`}
+                  className={classes.large}
+                />
+                :
+                <Avatar alt="Remy Sharp" src="" />
+              }
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -55,25 +65,21 @@ export default function Subpanel() {
             </CardActionArea>
           </Card>
         </Grid>
-
-        {/* <Grid item xs={3}>
-          <Paper className={classes.paper}>xs=3</Paper>
-        </Grid> */}
         <Grid item xs={7}>
-          <Grid item xs={12} sm={12} className={classes.grid2}style={{marginTop:80}}>
+          <Grid item xs={12} sm={12} className={classes.grid2}>
             <Card className={classes.root} variant="outlined" >
               <CardContent>
                 <Typography variant="h5" component="h2">
                   1 Pedidos de aulas
                 </Typography>
-                <Typography style={{ marginTop: 10 }} component="p">
+                <Typography component="p">
                   FERNANDO
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
                   Recife - Pernambuco
                  </Typography>
               </CardContent>
-              <CardActions style={{ marginTop: 10 }}>
+              <CardActions>
                 <Button size="small">Ver Mais</Button>
               </CardActions>
             </Card>
@@ -85,14 +91,14 @@ export default function Subpanel() {
                   <Typography variant="h5" component="h2">
                     1 Turmas
                 </Typography>
-                  <Typography style={{ marginTop: 10 }} component="p">
+                  <Typography component="p">
                     Grupo
                 </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
                     Data: 20/05/2020
                  </Typography>
                 </CardContent>
-                <CardActions style={{ marginTop: 10 }}>
+                <CardActions >
                   <Button size="small">Ver Mais</Button>
                 </CardActions>
               </Card>
@@ -101,16 +107,16 @@ export default function Subpanel() {
               <Card className={classes.root} variant="outlined">
                 <CardContent>
                   <Typography variant="h5" component="h2">
-                    1 Anúncios
+                    {Anunci && Anunci} Anúncios
                 </Typography>
-                  <Typography style={{ marginTop: 10 }} component="p">
+                  <Typography component="p">
                     Grupo
                 </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
                     Data: 20/05/2020
                  </Typography>
                 </CardContent>
-                <CardActions style={{ marginTop: 10 }}>
+                <CardActions >
                   <Button size="small">Ver Mais</Button>
                 </CardActions>
               </Card>

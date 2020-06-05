@@ -13,19 +13,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
-  },
-  large: {
-    margin: 'auto',
-    width: theme.spacing(20),
-    height: theme.spacing(20),
-  },
+  },  
   grid1: {
     flexGrow: 1,
-    textAlign: 'center',
-    marginTop: 15,
+    textAlign: 'center',   
   },
-  grid2: {
-    marginBottom: 15,
+  grid2: {   
     textAlign: 'center',
   },
 }))
@@ -46,7 +39,7 @@ export default function Subpanel() {
                 <Typography variant="h5" component="h2">
                   Pedido de aula
                 </Typography>
-                <Typography style={{ marginTop: 10 }} component="p">
+                <Typography  component="p">
                   FERNANDO
                 </Typography>
                 <Typography variant="subtitle1" color="textSecondary">
@@ -59,7 +52,7 @@ export default function Subpanel() {
                   81 - 9999-8888
                  </Typography>
               </CardContent>
-              <CardActions style={{ marginTop: 10 }}>
+              <CardActions >
                 <Button size="small">Ver Mais</Button>
               </CardActions>
             </Card>
@@ -71,7 +64,7 @@ export default function Subpanel() {
                   <Typography variant="h5" component="h2">
                     Pedido de aula
                 </Typography>
-                  <Typography style={{ marginTop: 10 }} component="p">
+                  <Typography component="p">
                     Fernando
                 </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
@@ -84,7 +77,7 @@ export default function Subpanel() {
                     81 - 9999-8888
                  </Typography>
                 </CardContent>
-                <CardActions style={{ marginTop: 10 }}>
+                <CardActions >
                   <Button size="small">Ver Mais</Button>
                 </CardActions>
               </Card>

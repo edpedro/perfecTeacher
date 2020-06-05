@@ -44,6 +44,20 @@ function AuthLoginSuccess(user){
     user
   }
 }
+function Upload(data, id){
+  return{
+    type: "UPLOAD",
+    data,
+    id
+
+  }
+}
+function UploadSuccess(data){
+  return{
+    type: "UPLOAD_SUCCESS",
+    data
+  }
+}
 export {
   RegisterSuccess, 
   LoginSuccess, 
@@ -52,5 +66,7 @@ export {
   LogoutUser,
   AuthLogin,
   AuthLoginSuccess,
-  LogoutUserSuccess
+  LogoutUserSuccess,
+  Upload,
+  UploadSuccess
 }

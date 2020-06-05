@@ -1,5 +1,11 @@
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects'
-import { LoginSuccess, AuthLoginSuccess, RegisterSuccess, LogoutUserSuccess } from './actions'
+import {
+  LoginSuccess,
+  AuthLoginSuccess,
+  RegisterSuccess,
+  LogoutUserSuccess,
+  UploadSuccess
+} from './actions'
 import { alertShowUserMessage, alertShowPanelMessage } from '../alert/actions'
 
 import api from '../../../services/api'
@@ -67,7 +73,7 @@ function* AuthLogin({ user }) {
     });
 
     yield put(AuthLoginSuccess(response.data))
-
+    console.log(response.data)
   } catch (error) {
     history.push("/")
   }
@@ -79,9 +85,41 @@ function* Logout() {
 
   history.push("/")
 }
+function* Upload({ data, id }) {
+  try {
+
+    yield call(api.post, `upload/${id}`, data, {
+      headers: {
+        'x-access-token': token,
+      }
+
+    });
+
+    yield put(alertShowPanelMessage({
+      severity: 'success',
+      message: 'Alterado com sucesso!!'
+    }))
+
+    yield put(UploadSuccess())
+
+    history.push("/editar")
+
+  } catch (error) {
+
+    console.log(error)
+
+    yield put(alertShowPanelMessage({
+      severity: 'error',
+      message: 'Adicionar imagem!!'
+    }))
+    
+  }
+}
+
 export default all([
   takeLatest('REGISTER', Register),
   takeLatest('LOGIN', Login),
+  takeEvery('UPLOAD', Upload),
   takeEvery('AUTH_LOGIN', AuthLogin),
   takeEvery('LOGOUT', Logout)
 ])

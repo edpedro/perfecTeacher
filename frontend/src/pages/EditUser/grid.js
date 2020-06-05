@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -9,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
+
+import { Upload } from '../../store/mdules/user/actions'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   grid1: {
     flexGrow: 1,
     textAlign: 'center',
-    marginTop: 15,
+    marginTop: 70
   },
   grid2: {
     marginBottom: 15,
@@ -36,30 +39,60 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Subpanel() {
+  const user = useSelector(state => state.users.user) 
+  const dispatch = useDispatch()
   const classes = useStyles();
+  const [upload, setUpload] = useState('')
+
+
+  function handleChange(event) {
+    setUpload(event.target.files)
+  };
+
+  function handleSubmint(event) {
+    event.preventDefault()
+
+    const formData = new FormData()
+    formData.append('file', upload[0])
+
+    dispatch(Upload(formData, user))
+  }
 
   return (
     <Fragment>
       <Grid container spacing={3}>
         <Grid item xs={5}>
           <Card className={classes.grid1}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" className={classes.large} />
-            <CardActionArea>
-              <CardContent>
-                <input
-                  accept="image/*"
-                  className={classes.input}
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                />
-                <label htmlFor="contained-button-file">
-                  <Button variant="contained" color="primary" component="span">
-                    Altera imagem
+
+            {user && user.image ?
+              <Avatar alt="Remy Sharp"
+                src={`http://localhost:3333/${user.image}`}
+                className={classes.large} />
+              :
+              <Avatar alt="Remy Sharp" src="" className={classes.large} />
+            }
+            <form onSubmit={handleSubmint}>
+              <CardActionArea>
+                <CardContent>
+                  <input
+                    className={classes.input}
+                    id="contained-button-file"
+                    type="file"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="contained-button-file">
+                    <Button variant="contained" color="primary" component="span">
+                      imagem
                   </Button>
-                </label>
-              </CardContent>
-            </CardActionArea>
+                  </label>
+                </CardContent>
+              </CardActionArea>
+              <div>
+                <Button type="submit" variant="contained">
+                  Alterar
+                </Button>
+              </div>
+            </form>
           </Card>
         </Grid>
 
@@ -71,72 +104,72 @@ export default function Subpanel() {
           <Grid item xs={12} sm={12} className={classes.grid2}>
             <Card className={classes.root} variant="outlined">
               <CardContent>
-              <Typography variant="h5" component="h2">
-                    Alterar senha
+                <Typography variant="h5" component="h2">
+                  Alterar senha
                 </Typography>
-              <TextField
-                required
-                id="outlined-required"
-                label="Email"                
-                variant="outlined"
-                style={{width: 500, marginBottom:4}}
-                />                
                 <TextField
-                required
-                id="outlined-required"
-                label="Senha antiga"                
-                variant="outlined"
-                style={{width: 500, marginBottom:4}}/>
+                  required
+                  id="outlined-required"
+                  label="Email"
+                  variant="outlined"
+                  style={{ width: 500, marginBottom: 4 }}
+                />
                 <TextField
-                required
-                id="outlined-required"
-                label="Senha nova"                
-                variant="outlined"
-                style={{width: 500}}/>
+                  required
+                  id="outlined-required"
+                  label="Senha antiga"
+                  variant="outlined"
+                  style={{ width: 500, marginBottom: 4 }} />
+                <TextField
+                  required
+                  id="outlined-required"
+                  label="Senha nova"
+                  variant="outlined"
+                  style={{ width: 500 }} />
               </CardContent>
-              <CardActions style={{ marginTop: 10, marginLeft:60 }}>
+              <CardActions style={{ marginLeft: 60 }}>
                 <Button size="small">Alterar</Button>
               </CardActions>
             </Card>
           </Grid>
           <Grid item xs={12} sm={12}>
-            <Grid item xs={12} sm={12} className={classes.grid2}>
-            <Card className={classes.root} variant="outlined">
-              <CardContent>
-              <Typography variant="h5" component="h2">
-                  Informações
+            <Grid item xs={12} sm={12}>
+              <Card className={classes.root} variant="outlined">
+                <CardContent>
+                  <Typography variant="h5" component="h2">
+                    Informações
                 </Typography>
-              <TextField
-                required
-                id="outlined-required"
-                label="Nome"                
-                variant="outlined"
-                style={{width: 300, margin: 4}}
-                />                
-                <TextField
-                required
-                id="outlined-required"
-                label="Data nascimento"                
-                variant="outlined"
-                style={{width: 300, margin: 4}}/>
-                <TextField
-                required
-                id="outlined-required"
-                label="Endereço"                
-                variant="outlined"
-                style={{width: 300, margin: 4}}/>
-                 <TextField
-                required
-                id="outlined-required"
-                label="Celular"                
-                variant="outlined"
-                style={{width: 300, margin: 4}}/>
-              </CardContent>
-              <CardActions style={{ marginTop: 10, marginLeft:60 }}>
-                <Button size="small">Validar</Button>
-              </CardActions>
-            </Card>
-            </Grid>            
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Nome"
+                    variant="outlined"
+                    style={{ width: 250, margin: 4 }}
+                  />
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Data nascimento"
+                    variant="outlined"
+                    style={{ width: 250, margin: 4 }} />
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Endereço"
+                    variant="outlined"
+                    style={{ width: 250, margin: 4 }} />
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Celular"
+                    variant="outlined"
+                    style={{ width: 250, margin: 4 }} />
+                </CardContent>
+                <CardActions style={{ marginTop: 10, marginLeft: 60 }}>
+                  <Button size="small">Validar</Button>
+                </CardActions>
+              </Card>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

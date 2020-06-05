@@ -1,4 +1,6 @@
 const express = require('express');
+const multer = require('multer')
+const multerConfig = require('../config/multer')
 const router = express.Router();
 
 const WithAuth = require('../private/auth')
@@ -15,6 +17,8 @@ router.post('/user', UserController.create)
 router.post('/login', UserController.login)
 router.get('/list', UserController.list)
 router.post('/authlogin', UserController.authLogin)
+router.post('/upload/:id', WithAuth, multer(multerConfig).single('file'), UserController.upload)
+
 
 router.post('/admin/materia', WithAuth, AdminController.createSubjects)
 router.get('/admin/materia', WithAuth, AdminController.showSubjects)

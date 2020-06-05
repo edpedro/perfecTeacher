@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: 320,
+    marginTop:80
   },
 }));
 
@@ -23,7 +24,7 @@ function AlertShow() {
           {data.message}
         </Alert>
       )
-      }
+      }     
     </div>
   );
 }

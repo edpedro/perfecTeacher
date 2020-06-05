@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
   grid1: {
     flexGrow: 1,
     textAlign: 'center',
-    marginTop: 100,
   },
   grid2: {
     textAlign: 'center',
@@ -31,21 +30,29 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Subpanel() {
   const classes = useStyles();
-  const data = useSelector(state => state.course.adverts) 
+  const data = useSelector(state => state.course.adverts)
+  const quant = useSelector(state => state.course.quant)
 
   return (
     <Fragment>
       {/* Primeira linha */}
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4} className={classes.grid1}>
-          <Typography variant="h5" gutterBottom>
-            Criar novo anuncio
-            <Link to="/course">
-             <Fab color="primary" aria-label="add" style={{ margin: 4 }}>
-              <AddIcon />
-            </Fab>
-            </Link>           
+          <Typography variant="subtitle1" gutterBottom style={{ color: '#DF0101' }}>
+            Limite de 3 anuncios
           </Typography>
+          {quant <= 3 &&
+            <Typography variant="h5" gutterBottom>
+              Criar novo anuncio
+            <Link to="/course">
+                <Fab color="primary" aria-label="add" style={{ margin: 4 }}>
+                  <AddIcon />
+                </Fab>
+              </Link>
+            </Typography>
+          }
+
+
         </Grid>
       </Grid>
       {/* Segunda linha */}

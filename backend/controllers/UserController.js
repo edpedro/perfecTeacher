@@ -9,6 +9,7 @@ module.exports = {
     async create(req, res) {
         try {
             const { name, email, password, type } = req.body
+            const image = req.file.filename
             const checkEmail = await connection('users')
                 .where('email', email).first()
 
@@ -20,17 +21,18 @@ module.exports = {
 
                 const hasePassword = await bcrypt.hash(password, 10)
                 const token = jwt.sign({ email }, secret, { expiresIn: '1d' })
-               const [id] = await connection('users').insert({
+                const [id] = await connection('users').insert({
                     name,
                     email,
                     hasePassword,
-                    type
-                })              
+                    type,
+                    image
+                })
                 return res.status(201).json({ token, type, id })
             }
 
         } catch (error) {
-            res.status(500).json({ message: 'Erro ao cadastrar!' })            
+            res.status(500).json({ message: 'Erro ao cadastrar!' })
         }
     },
     async login(req, res) {
@@ -41,7 +43,7 @@ module.exports = {
                 .first()
 
             if (await bcrypt.compare(hasePassword, user.hasePassword)) {
-                const token = jwt.sign({ email }, secret, { expiresIn: '1d' })
+                const token = jwt.sign({ email }, secret, { expiresIn: '2h' })
                 res.status(200).json({ token, user })
             } else {
                 res.status(500).json({ message: 'Email e Senha invalida!' })
@@ -62,13 +64,12 @@ module.exports = {
     },
     async authLogin(req, res) {
         const token = req.headers['x-access-token']
-        
+
         if (!token) {
             res.status(401).json({ message: 'Login não autorizado' })
-        }else{
+        } else {
 
-               try {
-
+            try {
                 const decodedToken = await jwt.verify(token, secret)
 
                 const user = await connection('users')
@@ -76,12 +77,23 @@ module.exports = {
                     .first()
                 res.status(200).json(user)
 
-            } catch (error) {         
+            } catch (error) {
                 res.status(500).json({ error })
-            } 
+            }
         }
-        
-
+    },
+    async upload(req, res) { 
+       try {
+            const id = req.params.id
+            const image = req.file.filename
+            await connection('users').where('users.id', '=',id).update({
+               image,
+             })
+             console.log("upload com sucesso!")
+            res.status(200).json({message: "upload com sucesso!"})
+        } catch (error) {
+            res.status(500).json({ error })
+        }
     }
 }
 
