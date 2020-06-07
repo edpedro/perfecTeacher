@@ -13,8 +13,7 @@ import history from '../../../services/history'
 
 const token = localStorage.getItem('token')
 
-function* Register({ user }) {
-
+function* Register({ user }) { 
   try {
 
     const response = yield call(() => api.post('user', user));
@@ -72,9 +71,9 @@ function* AuthLogin({ user }) {
       }
     });
 
-    yield put(AuthLoginSuccess(response.data))
-    console.log(response.data)
+    yield put(AuthLoginSuccess(response.data))  
   } catch (error) {
+    localStorage.removeItem('token')
     history.push("/")
   }
 }
@@ -85,29 +84,22 @@ function* Logout() {
 
   history.push("/")
 }
-function* Upload({ data, id }) {
+function* Upload({ user, id }) {
   try {
 
-    yield call(api.post, `upload/${id}`, data, {
+    yield call(api.post, `upload/${id}`, user, {
       headers: {
         'x-access-token': token,
       }
 
-    });
-
+    });    
+    yield put(UploadSuccess())
     yield put(alertShowPanelMessage({
       severity: 'success',
       message: 'Alterado com sucesso!!'
-    }))
-
-    yield put(UploadSuccess())
-
-    history.push("/editar")
-
+    }))    
+    
   } catch (error) {
-
-    console.log(error)
-
     yield put(alertShowPanelMessage({
       severity: 'error',
       message: 'Adicionar imagem!!'

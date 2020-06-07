@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -40,10 +40,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Subpanel() {
   const user = useSelector(state => state.users.user) 
+ 
   const dispatch = useDispatch()
   const classes = useStyles();
   const [upload, setUpload] = useState('')
-
 
   function handleChange(event) {
     setUpload(event.target.files)
@@ -55,7 +55,8 @@ export default function Subpanel() {
     const formData = new FormData()
     formData.append('file', upload[0])
 
-    dispatch(Upload(formData, user))
+    dispatch(Upload(formData, user.id))
+  
   }
 
   return (
@@ -108,21 +109,18 @@ export default function Subpanel() {
                   Alterar senha
                 </Typography>
                 <TextField
-                  required
-                  id="outlined-required"
+                  required                
                   label="Email"
                   variant="outlined"
                   style={{ width: 500, marginBottom: 4 }}
                 />
                 <TextField
-                  required
-                  id="outlined-required"
-                  label="Senha antiga"
-                  variant="outlined"
+                  required                
+                  label="Senha antiga"    
+                  variant="outlined"           
                   style={{ width: 500, marginBottom: 4 }} />
                 <TextField
-                  required
-                  id="outlined-required"
+                  required                
                   label="Senha nova"
                   variant="outlined"
                   style={{ width: 500 }} />
@@ -140,27 +138,23 @@ export default function Subpanel() {
                     Informações
                 </Typography>
                   <TextField
-                    required
-                    id="outlined-required"
+                    required                  
                     label="Nome"
                     variant="outlined"
                     style={{ width: 250, margin: 4 }}
                   />
                   <TextField
-                    required
-                    id="outlined-required"
+                    required                  
                     label="Data nascimento"
                     variant="outlined"
                     style={{ width: 250, margin: 4 }} />
                   <TextField
-                    required
-                    id="outlined-required"
+                    required        
                     label="Endereço"
                     variant="outlined"
                     style={{ width: 250, margin: 4 }} />
                   <TextField
-                    required
-                    id="outlined-required"
+                    required             
                     label="Celular"
                     variant="outlined"
                     style={{ width: 250, margin: 4 }} />

@@ -48,7 +48,7 @@ export default function Subpanel() {
                   className={classes.large}
                 />
                 :
-                <Avatar alt="Remy Sharp" src="" />
+                <Avatar alt="Remy Sharp" src="" className={classes.large}/>
               }
             <CardActionArea>
               <CardContent>

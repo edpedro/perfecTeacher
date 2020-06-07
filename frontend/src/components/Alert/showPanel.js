@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux'
-
+import React, { useEffect } from 'react';
+import { useSelector,useDispatch } from 'react-redux'
+import { alertHideUserMessage } from '../../store/mdules/alert/actions'
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: 320,
-    marginTop:80
+    marginTop: 80
   },
 }));
 
@@ -16,6 +16,13 @@ function AlertShow() {
   const classes = useStyles();
   const isShow = useSelector(state => state.alert.showMessage)
   const data = useSelector(state => state.alert.data)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(alertHideUserMessage())
+    }, 3500)
+  })
 
   return (
     <div className={classes.root}>
@@ -24,7 +31,7 @@ function AlertShow() {
           {data.message}
         </Alert>
       )
-      }     
+      }
     </div>
   );
 }

@@ -7,9 +7,9 @@ const secret = process.env.JWT_TOKEN
 
 module.exports = {
     async create(req, res) {
+        console.log(req.body)
         try {
-            const { name, email, password, type } = req.body
-            const image = req.file.filename
+            const { name, email, password, type } = req.body           
             const checkEmail = await connection('users')
                 .where('email', email).first()
 
@@ -25,8 +25,7 @@ module.exports = {
                     name,
                     email,
                     hasePassword,
-                    type,
-                    image
+                    type                  
                 })
                 return res.status(201).json({ token, type, id })
             }
@@ -82,14 +81,13 @@ module.exports = {
             }
         }
     },
-    async upload(req, res) { 
+    async upload(req, res) {      
        try {
             const id = req.params.id
             const image = req.file.filename
-            await connection('users').where('users.id', '=',id).update({
+           await connection('users').where('users.id', '=',id).update({
                image,
-             })
-             console.log("upload com sucesso!")
+             })    
             res.status(200).json({message: "upload com sucesso!"})
         } catch (error) {
             res.status(500).json({ error })

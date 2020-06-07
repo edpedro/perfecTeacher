@@ -44,18 +44,18 @@ function AuthLoginSuccess(user){
     user
   }
 }
-function Upload(data, id){
+function Upload(user, id){
   return{
     type: "UPLOAD",
-    data,
+    user,
     id
 
   }
 }
-function UploadSuccess(data){
+function UploadSuccess(user){
   return{
     type: "UPLOAD_SUCCESS",
-    data
+    user
   }
 }
 export {

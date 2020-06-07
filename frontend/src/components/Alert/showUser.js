@@ -20,7 +20,7 @@ function AlertShow() {
   useEffect(() => {
     setTimeout(() => {
       dispatch(alertHideUserMessage())
-    }, 2500)
+    }, 3500)
   })
 
   return (

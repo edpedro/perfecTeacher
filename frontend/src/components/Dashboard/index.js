@@ -108,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard({ children }) {
   const user = useSelector(state => state.users.user)
   const id = useSelector(state => state.users.id)
-
   const classes = useStyles();
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(true);
