@@ -1,16 +1,20 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
+import UpdateIcon from '@material-ui/icons/Update';
 import Fab from '@material-ui/core/Fab';
 import Avatar from '@material-ui/core/Avatar';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import ListIcon from '@material-ui/icons/List';
 
-
+import { GetAdverts, DeleteAdverts } from '../../store/mdules/course/actions'
 
 const useStyles = makeStyles((theme) => ({
   grid1: {
@@ -29,9 +33,23 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Subpanel() {
+  const dispatch = useDispatch()
   const classes = useStyles();
   const data = useSelector(state => state.course.adverts)
   const quant = useSelector(state => state.course.quant)
+  const id = useSelector(state => state.users.id)
+  const user = useSelector(state => state.users.user)
+
+  useEffect(() => {
+    dispatch(GetAdverts(id))
+  }, [id, dispatch])
+
+  function handleDelete(id){
+    const resl= window.confirm("Deseja deletar esse Anuncios")
+    if(resl){
+      dispatch(DeleteAdverts(id))
+    }
+  }
 
   return (
     <Fragment>
@@ -41,7 +59,7 @@ export default function Subpanel() {
           <Typography variant="subtitle1" gutterBottom style={{ color: '#DF0101' }}>
             Limite de 3 anuncios
           </Typography>
-          {quant <= 3 &&
+          {quant < 3 &&
             <Typography variant="h5" gutterBottom>
               Criar novo anuncio
             <Link to="/course">
@@ -69,7 +87,24 @@ export default function Subpanel() {
                     <Typography style={{ marginBottom: -30, marginTop: 30 }} component="p">
                       20/20/2020
                   </Typography>
-                    <Avatar alt="Remy Sharp" className={classes.large} />
+                    {user && user.image ?
+                      <Avatar alt="Remy Sharp"
+                        src={`http://localhost:3333/${user.image}`}
+                        className={classes.large}
+                      />
+                      :
+                      <Avatar alt="Remy Sharp" src="" className={classes.large} />
+                    }
+                    <Button>
+                      <ListIcon style={{ color: "#01DF01" }} />
+                    </Button>
+                    <Button>
+                    <UpdateIcon style={{ color: "#0040FF" }} />
+                    </Button>
+                    <Button onClick={() => handleDelete(e.id)}>
+                    <DeleteForeverIcon style={{ color: "#DF0101" }} />
+                    </Button>                
+                                       
                   </CardContent>
                 </Card>
               </Grid>

@@ -88,7 +88,7 @@ module.exports = {
            await connection('users').where('users.id', '=',id).update({
                image,
              })    
-            res.status(200).json({message: "upload com sucesso!"})
+            res.status(200).json({image})
         } catch (error) {
             res.status(500).json({ error })
         }

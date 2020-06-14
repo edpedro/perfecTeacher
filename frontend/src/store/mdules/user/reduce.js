@@ -9,7 +9,8 @@ function users(state = [], action) {
     case "LOGIN_SUCCESS":
       return {
         ...state,
-        user: action.user
+        user: action.user,
+        id: action.user.id
       }
     case "LOGOUT_SUCCESS":
       return {

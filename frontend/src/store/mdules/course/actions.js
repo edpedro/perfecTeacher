@@ -46,4 +46,18 @@ export function GetAdvertsSuccess(data){
     type: "GET_ADVERTS_SUCCESS",
     data
   }
+  
+}
+export function DeleteAdverts(data){
+  return{
+    type: "DELETE_ADVERTS",
+    data
+  }
+}
+export function DeleteAdvertsSuccess(data){
+  return{
+    type: "DELETE_ADVERTS_SUCCESS",
+    data
+  }
+  
 }

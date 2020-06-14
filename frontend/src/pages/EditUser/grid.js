@@ -1,4 +1,4 @@
-import React, { Fragment, useState} from 'react'
+import React, { Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -39,8 +39,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Subpanel() {
-  const user = useSelector(state => state.users.user) 
- 
+  const user = useSelector(state => state.users.user)
+  console.log(user)
+
+
   const dispatch = useDispatch()
   const classes = useStyles();
   const [upload, setUpload] = useState('')
@@ -56,7 +58,7 @@ export default function Subpanel() {
     formData.append('file', upload[0])
 
     dispatch(Upload(formData, user.id))
-  
+
   }
 
   return (
@@ -65,7 +67,7 @@ export default function Subpanel() {
         <Grid item xs={5}>
           <Card className={classes.grid1}>
 
-            {user && user.image ?
+            {user && user ?
               <Avatar alt="Remy Sharp"
                 src={`http://localhost:3333/${user.image}`}
                 className={classes.large} />
@@ -109,18 +111,18 @@ export default function Subpanel() {
                   Alterar senha
                 </Typography>
                 <TextField
-                  required                
+                  required
                   label="Email"
                   variant="outlined"
                   style={{ width: 500, marginBottom: 4 }}
                 />
                 <TextField
-                  required                
-                  label="Senha antiga"    
-                  variant="outlined"           
+                  required
+                  label="Senha antiga"
+                  variant="outlined"
                   style={{ width: 500, marginBottom: 4 }} />
                 <TextField
-                  required                
+                  required
                   label="Senha nova"
                   variant="outlined"
                   style={{ width: 500 }} />
@@ -138,23 +140,23 @@ export default function Subpanel() {
                     Informações
                 </Typography>
                   <TextField
-                    required                  
+                    required
                     label="Nome"
                     variant="outlined"
                     style={{ width: 250, margin: 4 }}
                   />
                   <TextField
-                    required                  
+                    required
                     label="Data nascimento"
                     variant="outlined"
                     style={{ width: 250, margin: 4 }} />
                   <TextField
-                    required        
+                    required
                     label="Endereço"
                     variant="outlined"
                     style={{ width: 250, margin: 4 }} />
                   <TextField
-                    required             
+                    required
                     label="Celular"
                     variant="outlined"
                     style={{ width: 250, margin: 4 }} />

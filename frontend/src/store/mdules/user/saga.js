@@ -62,8 +62,7 @@ function* Login({ user }) {
     }))
   }
 }
-function* AuthLogin({ user }) {
-
+function* AuthLogin({ user }) {  
   try {
     const response = yield call(api.post, 'authlogin', user, {
       headers: {
@@ -87,13 +86,13 @@ function* Logout() {
 function* Upload({ user, id }) {
   try {
 
-    yield call(api.post, `upload/${id}`, user, {
+    const response = yield call(api.post, `upload/${id}`, user, {
       headers: {
         'x-access-token': token,
       }
 
     });    
-    yield put(UploadSuccess())
+    yield put(UploadSuccess(response.data))
     yield put(alertShowPanelMessage({
       severity: 'success',
       message: 'Alterado com sucesso!!'

@@ -44,13 +44,16 @@ module.exports = {
         sub_subjects_id
       })
       //Atualizar usuario
-      const update = await connetcion('users').where('users.id', '=', user_id).update({
-        code,
-        city,
-        district,
-        uf,
-        Street,
-      })
+      if(code && city && district && uf && Street){
+          const update = await connetcion('users').where('users.id', '=', user_id).update({
+          code,
+          city,
+          district,
+          uf,
+          Street,
+        })
+      }
+     
 
       return res.status(201).json(course)
     } catch (error) {
@@ -101,7 +104,7 @@ module.exports = {
       } = req.body
 
 
-      const updateCourse = await connetcion('courses').where('id', '=', id).update({
+      const updateCourse = await connetcion('courses').where('courses.user_id', '=', id).update({
         competence,
         teach,
         homeClasses,
@@ -120,6 +123,19 @@ module.exports = {
       res.status(200).json(id)
     } catch (error) {
       res.status(400).json({ message: "Erro ao atualizar o curso" })
+    }
+
+  },
+   async delete(req, res) {
+    const { id } = req.params
+     
+    try { 
+        
+      await connetcion('courses').where('id', '=', id).del()
+    
+      res.status(200).json({ message: "Deletado" })
+    } catch (error) {
+      res.status(400).json({ message: "Erro ao deletar o curso" })
     }
 
   }

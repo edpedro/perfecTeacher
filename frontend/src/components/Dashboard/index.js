@@ -24,7 +24,7 @@ import SecondaryListItems from './SecondaryListItems'
 
 import { alertHidePanelMessage } from '../../store/mdules/alert/actions'
 import AlertShow from '../Alert/showPanel'
-import { GetAdverts } from '../../store/mdules/course/actions'
+
 
 const drawerWidth = 240;
 
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard({ children }) {
   const user = useSelector(state => state.users.user)
-  const id = useSelector(state => state.users.id)
+
   const classes = useStyles();
   const dispatch = useDispatch()
   const [open, setOpen] = React.useState(true);
@@ -124,11 +124,7 @@ export default function Dashboard({ children }) {
       dispatch(alertHidePanelMessage())
     }, 2500)
   })
-  useEffect(() => {
-    if (id) {
-      dispatch(GetAdverts(id))
-    }
-  })
+
   return (
     <div className={classes.root}>
       <CssBaseline />

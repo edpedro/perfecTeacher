@@ -7,7 +7,7 @@
 
 ## Sobre
 
-**PerfectTeacher** é uma plataforma para conectar professores e alunos, foi criador para praticar todo conteúdo estudado. 
+**PerfectTeacher** é uma plataforma para conectar professores e alunos, foi criado para praticar todo conteúdo estudado. 
 
 ---
 

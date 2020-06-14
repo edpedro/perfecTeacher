@@ -3,7 +3,8 @@ import {
   GetSubjectsSuccess,
   GetSub_SubjectsSuccess,
   courseSuccess,
-  GetAdvertsSuccess
+  GetAdvertsSuccess,
+  DeleteAdvertsSuccess
 } from '../course/actions'
 
 import { alertShowPanelMessage } from '../alert/actions'
@@ -15,9 +16,8 @@ import history from '../../../services/history'
 const token = localStorage.getItem('token')
 
 function* createCourse({ data }) {
-
+  
   try {
-
     const response = yield call(api.post, 'curso', data, {
       headers: {
         'x-access-token': token
@@ -27,7 +27,7 @@ function* createCourse({ data }) {
     yield put(courseSuccess(response.data))
     yield put(alertShowPanelMessage({
       severity: 'success',
-      message: 'Cadastrado com sucesso!!'
+      message: 'Curso cadastrado com sucesso!!'
     }))
     history.push("/painel")
   } catch (error) {
@@ -66,7 +66,7 @@ function* GetSub_Subject() {
   }
 }
 function* GetAdvertisement({data}) { 
-
+  const token = localStorage.getItem('token')
     try {
     const response = yield call(api.get, `curso/${data}`, {
       headers: {
@@ -80,9 +80,30 @@ function* GetAdvertisement({data}) {
     alert(error)
   }
 }
+function* DeleteAdvertisement({data}) { 
+  const token = localStorage.getItem('token')
+    try {
+    yield call(api.delete, `curso/${data}`, {
+      headers: {
+        'x-access-token': token
+      }
+    })
+
+    yield put(DeleteAdvertsSuccess())
+    history.push("/painel")
+    yield put(alertShowPanelMessage({
+      severity: 'success',
+      message: 'Deletado com sucesso!!'
+    }))
+
+  } catch (error) {
+    alert(error)
+  }
+}
 export default all([
   takeLatest('GET_SUBJECTS', GetSubject),
   takeLatest('GET_SUB_SUBJECTS', GetSub_Subject),
   takeLatest('CREATE_COURSE', createCourse),
   takeLatest('GET_ADVERTS', GetAdvertisement),
+  takeLatest('DELETE_ADVERTS', DeleteAdvertisement),
 ])

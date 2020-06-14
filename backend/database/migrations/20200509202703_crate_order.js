@@ -5,7 +5,7 @@ exports.up = function (knex) {
     
     //course
     table.string('courses_id')
-    table.foreign('courses_id').references('id').inTable('courses')
+    table.foreign('courses_id').references('id').inTable('courses').onUpdate('CASCADE').onDelete('CASCADE') 
 
     //user
     table.string('user_id')

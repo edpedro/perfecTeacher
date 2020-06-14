@@ -14,8 +14,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AboutForm(props) {
   const classes = useStyles();
-  const data = useSelector(state => state.course.adverts)
- 
+  const user = useSelector(state => state.users.user) 
+  console.log(user)
   function handleChange(event) {
     const { name, value } = event.target
     props.onChange({ ...props.data, [name]: value })
@@ -65,59 +65,59 @@ export default function AboutForm(props) {
             onChange={handleChange}
           />
         </Grid>
-        {data &&
-        data
-        ? 
-        ''
-        :
-         <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="city"
-            name="city"
-            label="Cidade"
-            fullWidth
-            autoComplete="billing address-level2"
-            defaultValue={props.data.city}
-            onChange={handleChange}
-          />
-        </Grid>
+        {user.code === null && 
+          <>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="city"
+                name="city"
+                label="Cidade"
+                fullWidth
+                autoComplete="billing address-level2"
+                defaultValue={props.data.city}
+                onChange={handleChange}
+              />
+            </Grid>
+
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="state"
+                name="state"
+                label="Estado"
+                fullWidth
+                defaultValue={props.data.state}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="zip"
+                name="code"
+                label="Cep"
+                fullWidth
+                autoComplete="billing postal-code"
+                defaultValue={props.data.code}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="country"
+                name="district"
+                label="Bairro"
+                fullWidth
+                autoComplete="billing country"
+                defaultValue={props.data.district}
+                onChange={handleChange}
+              />
+            </Grid>
+          </>
         }
-       
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="state"
-            name="state"
-            label="Estado"
-            fullWidth
-            defaultValue={props.data.state}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="zip"
-            name="code"
-            label="Cep"
-            fullWidth
-            autoComplete="billing postal-code"
-            defaultValue={props.data.code}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required
-            id="country"
-            name="district"
-            label="Bairro"
-            fullWidth
-            autoComplete="billing country"
-            defaultValue={props.data.district}
-            onChange={handleChange}
-          />
-        </Grid>
+
       </Grid>
     </React.Fragment>
   );
