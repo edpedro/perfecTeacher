@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Subpanel() {
   const user = useSelector(state => state.users.user)
-  console.log(user)
+
 
 
   const dispatch = useDispatch()

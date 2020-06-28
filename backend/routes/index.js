@@ -28,6 +28,7 @@ router.get('/admin/submateria', WithAuth, AdminController.showSub_Subjects)
 
 router.post('/curso', WithAuth, CourseController.create)
 router.get('/curso/:id', WithAuth, CourseController.show)
+router.get('/curso/show/:id', WithAuth, CourseController.showId)
 router.put('/curso/:id', WithAuth, CourseController.edit)
 router.delete('/curso/:id', WithAuth, CourseController.delete)
 

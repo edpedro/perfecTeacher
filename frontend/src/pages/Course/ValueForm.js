@@ -45,7 +45,7 @@ export default function ValueFrom(props) {
             label="O valor pela hora"
             variant="outlined"
             name="hourValue"
-            defaultValue={props.data.hourValue}
+            defaultValue={props.data && props.data.hourValue}
             onChange={handleChange}
             className={classes.textfield1} />
         </Grid>
@@ -54,7 +54,7 @@ export default function ValueFrom(props) {
             label="indicar um valor diferente para aulas por webcam"
             variant="outlined"
             name="webValue"
-            defaultValue={props.data.webValue}
+            defaultValue={props.data && props.data.webValue}
             onChange={handleChange}
             className={classes.textfield1} />
         </Grid>
@@ -63,7 +63,7 @@ export default function ValueFrom(props) {
             label="Adicionar uma taxa de deslocamento"
             variant="outlined"
             name="offsetValue"
-            defaultValue={props.data.offsetValue}
+            defaultValue={props.data && props.data.offsetValue}
             onChange={handleChange}
             className={classes.textfield1} />
         </Grid>
@@ -72,7 +72,7 @@ export default function ValueFrom(props) {
             label="Propor um valor decrescente para um pacote de aulas"
             variant="outlined"
             name="packageValue"
-            defaultValue={props.data.packageValue}
+            defaultValue={props.data && props.data.packageValue}
             onChange={handleChange}
             className={classes.textfield1} />
         </Grid>

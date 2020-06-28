@@ -87,9 +87,11 @@ function getStepContent(step, setData, data) {
   }
 }
 
-export default function Course() { 
-  const user = useSelector(state => state.users.user)
-  const id = useSelector(state => state.users.id)
+export default function Course() {
+  const user = useSelector(state => state.users.id)
+  const course = useSelector(state => state.course.update) 
+  const edit = course && course.id
+
 
   const [data, setData] = useState({
     subjects_id: '',
@@ -109,14 +111,16 @@ export default function Course() {
     offsetValue: '',
     webValue: '',
     hourValue: '',
-    
+    user_id: user
   })
-  useEffect(() =>{
-    if(user){
-      setData( {user_id: id})
-    }
-  },[setData, user, id])
 
+  useEffect(() => {
+    if (course) {
+      return setData(course)
+    }
+  }, [course])
+ 
+ 
   const dispatch = useDispatch()
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
@@ -131,7 +135,7 @@ export default function Course() {
   };
   function handleSubmit(e) {
     e.preventDefault()
-    dispatch(AddCourse(data))
+    dispatch(AddCourse(data, edit))
   }
   return (
     <React.Fragment>

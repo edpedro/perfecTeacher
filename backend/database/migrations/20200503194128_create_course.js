@@ -4,9 +4,9 @@ exports.up = function(knex) {
     table.increments()
     table.string('competence')//competencia
     table.string('teach')//ensinar
-    table.string('homeClasses')//aulas em casa
-    table.string('webCamClasses')//aulas webCam
-    table.string('studentClasses')//aulas aluno
+    table.boolean('homeClasses')//aulas em casa
+    table.boolean('webCamClasses')//aulas webCam
+    table.boolean('studentClasses')//aulas aluno
     table.string('title')    
     table.string('methodology')//metodologia
     table.string('presentation')//apresentacao

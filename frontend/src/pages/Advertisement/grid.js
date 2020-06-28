@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -14,16 +13,18 @@ import Avatar from '@material-ui/core/Avatar';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ListIcon from '@material-ui/icons/List';
 
-import { GetAdverts, DeleteAdverts } from '../../store/mdules/course/actions'
+import { GetAdverts, DeleteAdverts, UpdateAdverts } from '../../store/mdules/course/actions'
+
+import history from '../../services/history'
 
 const useStyles = makeStyles((theme) => ({
   grid1: {
     flexGrow: 1,
-    textAlign: 'center',
+    textAlign: 'center',   
   },
   grid2: {
     textAlign: 'center',
-    alignContent: 'center',
+    alignContent: 'center',  
   },
   large: {
     width: theme.spacing(10),
@@ -44,11 +45,23 @@ export default function Subpanel() {
     dispatch(GetAdverts(id))
   }, [id, dispatch])
 
-  function handleDelete(id){
-    const resl= window.confirm("Deseja deletar esse Anuncios")
-    if(resl){
+  function handleDelete(id) {
+    const resl = window.confirm("Deseja deletar esse Anuncios")
+    if (resl) {
       dispatch(DeleteAdverts(id))
     }
+  }
+  function handleUpdate(id) {
+
+    dispatch(UpdateAdverts(id))
+
+    history.push("/course")
+  }
+  function handleCreateCourse() {
+
+     dispatch(UpdateAdverts())
+
+    history.push("/course")
   }
 
   return (
@@ -62,15 +75,11 @@ export default function Subpanel() {
           {quant < 3 &&
             <Typography variant="h5" gutterBottom>
               Criar novo anuncio
-            <Link to="/course">
-                <Fab color="primary" aria-label="add" style={{ margin: 4 }}>
-                  <AddIcon />
-                </Fab>
-              </Link>
+                <Fab color="primary" aria-label="add" style={{ margin: 4 }} onClick={handleCreateCourse}>
+                <AddIcon />
+              </Fab>
             </Typography>
           }
-
-
         </Grid>
       </Grid>
       {/* Segunda linha */}
@@ -81,10 +90,10 @@ export default function Subpanel() {
               <Grid item xs={6} sm={12} className={classes.grid2}>
                 <Card className={classes.root} variant="outlined">
                   <CardContent>
-                    <Typography style={{ marginBottom: -30, marginTop: 30 }} component="p">
+                    <Typography component="p">
                       {e.title}
                     </Typography>
-                    <Typography style={{ marginBottom: -30, marginTop: 30 }} component="p">
+                    <Typography style={{ marginBottom: -20}} component="p">
                       20/20/2020
                   </Typography>
                     {user && user.image ?
@@ -98,13 +107,13 @@ export default function Subpanel() {
                     <Button>
                       <ListIcon style={{ color: "#01DF01" }} />
                     </Button>
-                    <Button>
-                    <UpdateIcon style={{ color: "#0040FF" }} />
+                    <Button onClick={() => handleUpdate(e.id)}>
+                      <UpdateIcon style={{ color: "#0040FF" }} />
                     </Button>
                     <Button onClick={() => handleDelete(e.id)}>
-                    <DeleteForeverIcon style={{ color: "#DF0101" }} />
-                    </Button>                
-                                       
+                      <DeleteForeverIcon style={{ color: "#DF0101" }} />
+                    </Button>
+
                   </CardContent>
                 </Card>
               </Grid>

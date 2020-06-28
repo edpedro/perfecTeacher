@@ -1,7 +1,8 @@
 export function AddCourse(data, id){
   return{
     type: "CREATE_COURSE",
-    data
+    data,
+    id
   }
 }
 export function courseSuccess(data){
@@ -41,12 +42,23 @@ export function GetAdverts(data){
     data
   }
 }
+export function UpdateAdverts(data){  
+  return{
+    type: "UPDATE_ADVERTS",
+    data
+  }
+}
 export function GetAdvertsSuccess(data){
   return{
     type: "GET_ADVERTS_SUCCESS",
     data
-  }
-  
+  }  
+}
+export function UpdateAdvertsSuccess(data){
+  return{
+    type: "UPDATE_ADVERTS_SUCCESS",
+    data
+  }  
 }
 export function DeleteAdverts(data){
   return{

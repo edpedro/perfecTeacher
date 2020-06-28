@@ -4,7 +4,8 @@ import {
   GetSub_SubjectsSuccess,
   courseSuccess,
   GetAdvertsSuccess,
-  DeleteAdvertsSuccess
+  DeleteAdvertsSuccess,
+  UpdateAdvertsSuccess
 } from '../course/actions'
 
 import { alertShowPanelMessage } from '../alert/actions'
@@ -15,23 +16,32 @@ import history from '../../../services/history'
 
 const token = localStorage.getItem('token')
 
-function* createCourse({ data }) {
-  
+function* createCourse({ data, id }) {
+
   try {
-    const response = yield call(api.post, 'curso', data, {
+    const method = id ? api.put : api.post
+    const url = id
+      ? `curso/${data.id}`
+      : `curso`
+
+    const response = yield call(method, url, data, {
       headers: {
         'x-access-token': token
       }
     })
-
     yield put(courseSuccess(response.data))
+
+    const text = id
+      ? 'Curso alterado com sucesso!!'
+      : 'Curso cadastrado com sucesso!!'
+
     yield put(alertShowPanelMessage({
       severity: 'success',
-      message: 'Curso cadastrado com sucesso!!'
+      message: text
     }))
     history.push("/painel")
   } catch (error) {
-    console.log(error)
+    alert(error)
   }
 }
 
@@ -65,9 +75,10 @@ function* GetSub_Subject() {
     alert(error)
   }
 }
-function* GetAdvertisement({data}) { 
+function* GetAdvertisement({ data }) {
   const token = localStorage.getItem('token')
-    try {
+
+  try {
     const response = yield call(api.get, `curso/${data}`, {
       headers: {
         'x-access-token': token
@@ -80,9 +91,25 @@ function* GetAdvertisement({data}) {
     alert(error)
   }
 }
-function* DeleteAdvertisement({data}) { 
+function* UpdateAdvertisement({ data }) {
+  console.log(data)
   const token = localStorage.getItem('token')
-    try {
+  try {
+    const response = yield call(api.get, `curso/show/${data}`, {
+      headers: {
+        'x-access-token': token
+      }
+    })
+    yield put(UpdateAdvertsSuccess(response.data[0]))
+
+  } catch (error) {
+    alert(error)
+  }
+}
+function* DeleteAdvertisement({ data }) {
+ 
+  const token = localStorage.getItem('token')
+  try {
     yield call(api.delete, `curso/${data}`, {
       headers: {
         'x-access-token': token
@@ -106,4 +133,5 @@ export default all([
   takeLatest('CREATE_COURSE', createCourse),
   takeLatest('GET_ADVERTS', GetAdvertisement),
   takeLatest('DELETE_ADVERTS', DeleteAdvertisement),
+  takeLatest('UPDATE_ADVERTS', UpdateAdvertisement),
 ])

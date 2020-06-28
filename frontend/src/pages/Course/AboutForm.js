@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AboutForm(props) {
   const classes = useStyles();
   const user = useSelector(state => state.users.user) 
-  console.log(user)
+
   function handleChange(event) {
     const { name, value } = event.target
     props.onChange({ ...props.data, [name]: value })
@@ -35,7 +35,7 @@ export default function AboutForm(props) {
             rows={2}
             variant="outlined"
             name="title"
-            defaultValue={props.data.title}
+            defaultValue={props.data && props.data.title}
             onChange={handleChange}
           />
         </Grid>
@@ -48,7 +48,7 @@ export default function AboutForm(props) {
             rows={2}
             variant="outlined"
             name="methodology"
-            defaultValue={props.data.methodology}
+            defaultValue={props.data && props.data.methodology}
             onChange={handleChange}
           />
         </Grid>
@@ -61,7 +61,7 @@ export default function AboutForm(props) {
             rows={2}
             variant="outlined"
             name="presentation"
-            defaultValue={props.data.presentation}
+            defaultValue={props.data && props.data.presentation}
             onChange={handleChange}
           />
         </Grid>
@@ -75,7 +75,7 @@ export default function AboutForm(props) {
                 label="Cidade"
                 fullWidth
                 autoComplete="billing address-level2"
-                defaultValue={props.data.city}
+                defaultValue={props.data && props.data.city}
                 onChange={handleChange}
               />
             </Grid>
@@ -87,7 +87,7 @@ export default function AboutForm(props) {
                 name="state"
                 label="Estado"
                 fullWidth
-                defaultValue={props.data.state}
+                defaultValue={props.data && props.data.state}
                 onChange={handleChange}
               />
             </Grid>
@@ -99,7 +99,7 @@ export default function AboutForm(props) {
                 label="Cep"
                 fullWidth
                 autoComplete="billing postal-code"
-                defaultValue={props.data.code}
+                defaultValue={props.data && props.data.code}
                 onChange={handleChange}
               />
             </Grid>
@@ -111,7 +111,7 @@ export default function AboutForm(props) {
                 label="Bairro"
                 fullWidth
                 autoComplete="billing country"
-                defaultValue={props.data.district}
+                defaultValue={props.data && props.data.district}
                 onChange={handleChange}
               />
             </Grid>

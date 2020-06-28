@@ -83,6 +83,24 @@ module.exports = {
       res.json({ message: "Erro", error })
     }
   },
+  async showId(req, res) {
+    const { id } = req.params
+
+    try {
+
+      const course = await connetcion('courses')
+        .where('courses.id','=', id)
+        .join('sub_subjects', 'sub_subjects.id', '=', 'courses.sub_subjects_id')
+        .join('users', 'users.id', '=', 'courses.user_id')
+        .join('subjects', 'subjects.id', '=', 'courses.subjects_id')
+        .select(['courses.*', 'sub_subjects.subMatter', 'subjects.matter', 'users.name'])
+        
+      res.status(200).json(course)
+
+    } catch (error) {
+      res.json({ message: "Erro", error })
+    }
+  },
   async edit(req, res) {
     const { id } = req.params
     
@@ -104,7 +122,7 @@ module.exports = {
       } = req.body
 
 
-      const updateCourse = await connetcion('courses').where('courses.user_id', '=', id).update({
+      const updateCourse = await connetcion('courses').where('courses.id', '=', id).update({
         competence,
         teach,
         homeClasses,
