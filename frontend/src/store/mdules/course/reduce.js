@@ -21,13 +21,14 @@ function course(state = [], action) {
         adverts: action.data,
         quant: action.data.length
       }
-    case "UPDATE_ADVERTS_SUCCESS": 
+    case "SHOW_ID_ADVERTS_SUCCESS": 
       if(action.data === undefined){
         return {}
       }
       return {
         ...state,
         update: action.data,
+        showId: action.data
       }
         
     case "DELETE_ADVERTS_SUCCESS":

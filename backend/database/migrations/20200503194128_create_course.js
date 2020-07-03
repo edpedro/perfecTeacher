@@ -13,7 +13,7 @@ exports.up = function(knex) {
     table.decimal('hourValue')//valor da hora
     table.decimal('offsetValue')//valor do deslocamento
     table.decimal('webValue')//valor da web
-    table.decimal('packageValue')//calor do pacote
+    table.decimal('packageValue')//valor do pacote
     //user
     table.string('user_id')
     table.foreign('user_id').references('id').inTable('users')

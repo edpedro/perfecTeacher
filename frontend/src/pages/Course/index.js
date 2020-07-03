@@ -91,14 +91,13 @@ export default function Course() {
   const user = useSelector(state => state.users.id)
   const course = useSelector(state => state.course.update) 
   const edit = course && course.id
-
-
+  console.log(course)
   const [data, setData] = useState({
     subjects_id: '',
     sub_subjects_id: '',
     competence: '',
     homeClasses: '',
-    studentClasses: '',
+    studentClasses:'' ,
     webCamClasses: '',
     title: '',
     methodology: '',
@@ -106,7 +105,7 @@ export default function Course() {
     city: '',
     code: '',
     district: '',
-    state: '',
+    uf: '',
     packageValue: '',
     offsetValue: '',
     webValue: '',
@@ -119,7 +118,6 @@ export default function Course() {
       return setData(course)
     }
   }, [course])
- 
  
   const dispatch = useDispatch()
   const classes = useStyles();

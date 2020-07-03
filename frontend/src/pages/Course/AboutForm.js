@@ -83,11 +83,11 @@ export default function AboutForm(props) {
 
             <Grid item xs={12} sm={6}>
               <TextField
-                id="state"
-                name="state"
+                id="uf"
+                name="uf"
                 label="Estado"
                 fullWidth
-                defaultValue={props.data && props.data.state}
+                defaultValue={props.data && props.data.uf}
                 onChange={handleChange}
               />
             </Grid>

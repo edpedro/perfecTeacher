@@ -8,6 +8,7 @@ import {
 } from './actions'
 import { alertShowUserMessage, alertShowPanelMessage } from '../alert/actions'
 
+
 import api from '../../../services/api'
 import history from '../../../services/history'
 
@@ -19,7 +20,7 @@ function* Register({ user }) {
     const response = yield call(() => api.post('user', user));
 
     localStorage.setItem('token', response.data.token)
-
+    
     yield put(RegisterSuccess(response.data.id))
     yield put(alertShowPanelMessage({
       severity: 'success',
@@ -62,7 +63,7 @@ function* Login({ user }) {
     }))
   }
 }
-function* AuthLogin({ user }) {  
+function* AuthLogin({ user }) {   
   try {
     const response = yield call(api.post, 'authlogin', user, {
       headers: {

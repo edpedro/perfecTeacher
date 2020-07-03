@@ -2,8 +2,7 @@ function users(state = [], action) {
   switch (action.type) {
     case "REGISTER_SUCCESS":
       return {
-        ...state,
-        user: action.user,
+        ...state,       
         id: action.user
       }
     case "LOGIN_SUCCESS":
@@ -21,7 +20,8 @@ function users(state = [], action) {
       return {
         ...state,
         user: action.user,
-        id: action.user.id
+        id: action.user.id,
+        teste: action.user.id
       }
     case "UPLOAD_SUCCESS":
       return {

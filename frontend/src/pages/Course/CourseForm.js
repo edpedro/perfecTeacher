@@ -28,15 +28,18 @@ export default function CourseFrom(props) {
   const [checked, setChecked] = useState({
     studentClasses: true,
     webCamClasses: true,
-    homeClasses: true
+    homeClasses: true,
   });
-
-  function handleChange(event) {
+  
+  function handleChange(event){
     const { name, value } = event.target
+    props.onChange({ ...props.data, [name]: value })
+  }
+
+  function handleChangeChecked(event) {   
 
     setChecked({ ...checked, [event.target.name]: event.target.checked });
-    props.onChange({ ...props.data, ...checked, [name]: value })
-
+    props.onChange({ ...props.data, ...checked })
   }
   //Primeiro select
   function handleChangeSelect1(event) {
@@ -52,7 +55,7 @@ export default function CourseFrom(props) {
   //segundo select
   function handleChangeSelect2(event) {
     const { name, value } = event.target
-    props.onChange({ ...props.data, [name]: value })
+    props.onChange({ ...props.data, ...checked, [name]: value })
   }
 
   useEffect(() => {
@@ -73,7 +76,7 @@ export default function CourseFrom(props) {
             <Select
               native
               name="subjects_id"
-              value={props.data ? props.data.subjects_id : ''}
+              defaultValue={props.data ? props.data.subjects_id : ''}
               onChange={handleChangeSelect1}
             >
               <option aria-label="None" value="" />
@@ -91,7 +94,7 @@ export default function CourseFrom(props) {
             <Select
               native
               name="sub_subjects_id"
-              value={props.data ? props.data.sub_subjects_id : ''}
+              defaultValue={props.data ? props.data.sub_subjects_id : ''}
               onChange={handleChangeSelect2}
             >
               <option aria-label="None" value="" />
@@ -112,8 +115,7 @@ export default function CourseFrom(props) {
             label="Adicione outras competências"
             fullWidth
             autoComplete="billing address-line1"
-            value={props.data ? props.data.competence : ''}
-
+            value={props.data && props.data.competence}
             onChange={handleChange}
           />
         </Grid>
@@ -122,9 +124,9 @@ export default function CourseFrom(props) {
             control={<Checkbox color="secondary" />}
             label="Eu posso receber o aluno em minha casa "
             name="homeClasses"
-            value={props.data && props.data.homeClasses}
+            value={props.data.homeClasses}
             checked={checked.homeClasses}
-            onChange={handleChange}
+            onChange={handleChangeChecked}
           />
           <FormControlLabel
             control={<Checkbox color="secondary"
@@ -132,18 +134,18 @@ export default function CourseFrom(props) {
             />}
             label="Eu posso me deslocar à casa do aluno "
             name="studentClasses"
-            value={props.data && props.data.studentClasses}
+            value={props.data.studentClasses}
             checked={checked.studentClasses}
-            onChange={handleChange}
+            onChange={handleChangeChecked}
 
           />
           <FormControlLabel
             control={<Checkbox color="secondary" />}
             label="Eu posso dar aulas por webcam "
             name="webCamClasses"
-            value={props.data && props.data.webCamClasses}
+            value={props.data.webCamClasses}
             checked={checked.webCamClasses}
-            onChange={handleChange}
+            onChange={handleChangeChecked}
           />
         </Grid>
       </Grid>

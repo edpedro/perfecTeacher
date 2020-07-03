@@ -11,6 +11,7 @@ import Classes from './pages/Classe'
 import Amount from './pages/Amount'
 import Advertisement from './pages/Advertisement'
 import EditUser from './pages/EditUser'
+import Profile from './pages/Profile'
 
 import { PrivateRoute, PublicRoute } from './authentication/PrivateRoute'
 
@@ -18,6 +19,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
+      <Route path="/profile" component={Profile} />
       <PublicRoute path="/login" component={Login} />
       <PublicRoute path="/register" component={Register} />
       <PrivateRoute path="/painel" component={Panel} />

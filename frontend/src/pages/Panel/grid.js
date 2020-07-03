@@ -57,10 +57,7 @@ export default function Subpanel() {
                </Typography>
                 <Typography variant="subtitle1" color="textSecondary" component="p">
                   Desenvolvedor web
-          </Typography>
-                <Typography variant="h4" gutterBottom>
-                  R$40/h
-          </Typography>
+          </Typography>               
               </CardContent>
             </CardActionArea>
           </Card>

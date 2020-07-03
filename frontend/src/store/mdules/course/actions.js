@@ -42,9 +42,9 @@ export function GetAdverts(data){
     data
   }
 }
-export function UpdateAdverts(data){  
+export function ShowIdAdverts(data){  
   return{
-    type: "UPDATE_ADVERTS",
+    type: "SHOW_ID_ADVERTS",
     data
   }
 }
@@ -54,9 +54,9 @@ export function GetAdvertsSuccess(data){
     data
   }  
 }
-export function UpdateAdvertsSuccess(data){
+export function ShowIdAdvertsSuccess(data){
   return{
-    type: "UPDATE_ADVERTS_SUCCESS",
+    type: "SHOW_ID_ADVERTS_SUCCESS",
     data
   }  
 }

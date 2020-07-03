@@ -14,8 +14,7 @@ module.exports = {
         code,
         city,
         district,
-        uf,
-        Street,
+        uf,        
         hourValue,
         offsetValue,
         webValue,
@@ -24,7 +23,7 @@ module.exports = {
         sub_subjects_id,
         user_id,
          } = req.body
-       
+
       //Adicionar curso 
       const course = await connetcion('courses').insert({
         competence,
@@ -43,14 +42,14 @@ module.exports = {
         subjects_id,
         sub_subjects_id
       })
+
       //Atualizar usuario
-      if(code && city && district && uf && Street){
+      if(code && city && district && uf ){
           const update = await connetcion('users').where('users.id', '=', user_id).update({
           code,
           city,
           district,
-          uf,
-          Street,
+          uf,         
         })
       }
      

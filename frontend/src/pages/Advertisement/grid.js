@@ -13,7 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ListIcon from '@material-ui/icons/List';
 
-import { GetAdverts, DeleteAdverts, UpdateAdverts } from '../../store/mdules/course/actions'
+import { GetAdverts, DeleteAdverts, ShowIdAdverts } from '../../store/mdules/course/actions'
 
 import history from '../../services/history'
 
@@ -53,17 +53,22 @@ export default function Subpanel() {
   }
   function handleUpdate(id) {
 
-    dispatch(UpdateAdverts(id))
+    dispatch(ShowIdAdverts(id))
 
     history.push("/course")
   }
   function handleCreateCourse() {
 
-     dispatch(UpdateAdverts())
+     dispatch(ShowIdAdverts())
 
     history.push("/course")
   }
+  function handleShowProfile(id){
 
+    dispatch(ShowIdAdverts(id))
+    history.push("/profile")
+
+  }
   return (
     <Fragment>
       {/* Primeira linha */}
@@ -104,7 +109,7 @@ export default function Subpanel() {
                       :
                       <Avatar alt="Remy Sharp" src="" className={classes.large} />
                     }
-                    <Button>
+                    <Button onClick={() => handleShowProfile(e.id)}>
                       <ListIcon style={{ color: "#01DF01" }} />
                     </Button>
                     <Button onClick={() => handleUpdate(e.id)}>

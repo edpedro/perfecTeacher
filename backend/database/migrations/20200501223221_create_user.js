@@ -10,8 +10,7 @@ exports.up = function(knex) {
     table.string('code')
     table.string('city')
     table.string('district')
-    table.string('uf')
-    table.string('Street')
+    table.string('uf')   
   })
   
 };
