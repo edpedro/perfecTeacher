@@ -12,6 +12,7 @@ import Amount from './pages/Amount'
 import Advertisement from './pages/Advertisement'
 import EditUser from './pages/EditUser'
 import Profile from './pages/Profile'
+import Search from './pages/Search'
 
 import { PrivateRoute, PublicRoute } from './authentication/PrivateRoute'
 
@@ -20,6 +21,7 @@ export default function Routes() {
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/profile" component={Profile} />
+      <Route path="/search"  component={Search} />
       <PublicRoute path="/login" component={Login} />
       <PublicRoute path="/register" component={Register} />
       <PrivateRoute path="/painel" component={Panel} />

@@ -5,7 +5,9 @@ import {
   courseSuccess,
   GetAdvertsSuccess,
   DeleteAdvertsSuccess,
-  ShowIdAdvertsSuccess
+  ShowIdAdvertsSuccess,
+  SearchSuccess,
+  ChaveSuccess,
 } from '../course/actions'
 
 import { alertShowPanelMessage } from '../alert/actions'
@@ -21,7 +23,7 @@ function* createCourse({ data, id }) {
   try {
     const method = id ? api.put : api.post
     const url = id ? `curso/${data.id}` : `curso`
-    
+
     const response = yield call(method, url, data, {
       headers: {
         'x-access-token': token
@@ -89,17 +91,12 @@ function* GetAdvertisement({ data }) {
     alert(error)
   }
 }
-function* ShowIdAdvertisement({ data }) {
-  const token = localStorage.getItem('token')
+function* ShowIdAdvertisement({ data }) { 
 
   try {
-    const response = yield call(api.get, `curso/show/${data}`, {
-      headers: {
-        'x-access-token': token
-      }
-    })
+    const response = yield call(api.get, `curso/show/${data}`)
     yield put(ShowIdAdvertsSuccess(response.data[0]))
-    
+
   } catch (error) {
     alert(error)
   }
@@ -125,6 +122,21 @@ function* DeleteAdvertisement({ data }) {
     alert(error)
   }
 }
+function* Search({ data }) {
+  const search_query = data.search
+  
+  try {
+    const response = yield call(api.get, 'curso', {
+      params: {
+        search_query
+      }
+    })   
+   yield put(SearchSuccess(response.data))
+   yield put(ChaveSuccess(search_query))
+  } catch (error) {
+    alert(error)
+  }
+}
 export default all([
   takeLatest('GET_SUBJECTS', GetSubject),
   takeLatest('GET_SUB_SUBJECTS', GetSub_Subject),
@@ -132,4 +144,5 @@ export default all([
   takeLatest('GET_ADVERTS', GetAdvertisement),
   takeLatest('DELETE_ADVERTS', DeleteAdvertisement),
   takeLatest('SHOW_ID_ADVERTS', ShowIdAdvertisement),
+  takeLatest('SEARCH', Search),
 ])

@@ -1,4 +1,4 @@
-import React  from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -52,7 +52,7 @@ function Profile() {
   const user = useSelector(state => state.users.user)
   const course = useSelector(state => state.course.showId)
 
-  
+
   const classes = useStyles();
   return (
     <div className={classes.body}>
@@ -65,14 +65,10 @@ function Profile() {
               <Paper className={classes.paper}>
                 <Grid container wrap="nowrap" spacing={2}>
                   <Grid item>
-                    {user && user.image ?
-                      <Avatar alt="Remy Sharp"
-                        src={`http://localhost:3333/${user.image}`}
-                        className={classes.large}
-                      />
-                      :
-                      <Avatar alt="Remy Sharp" src="" className={classes.large} />
-                    }
+                    <Avatar alt="Remy Sharp"
+                      src={`http://localhost:3333/${course && course.image}`}
+                      className={classes.large}
+                    />
                   </Grid>
                   <Grid item xs>
                     <Box fontWeight="fontWeightBold" m={1}>

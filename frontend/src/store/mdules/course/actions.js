@@ -1,75 +1,94 @@
-export function AddCourse(data, id){
-  return{
+export function AddCourse(data, id) {
+  return {
     type: "CREATE_COURSE",
     data,
     id
   }
 }
-export function courseSuccess(data){
-  return{
+export function courseSuccess(data) {
+  return {
     type: "CREATE_COURSE_SUCCESS",
     data
   }
 }
-export function GetSubjects(data){
-  return{
+export function GetSubjects(data) {
+  return {
     type: "GET_SUBJECTS",
     data
   }
 }
-export function GetSubjectsSuccess(data){
-  return{
+export function GetSubjectsSuccess(data) {
+  return {
     type: "GET_SUBJECTS_SUCCESS",
     data
   }
 }
-export function GetSub_Subjects(data){
-  return{
+export function GetSub_Subjects(data) {
+  return {
     type: "GET_SUB_SUBJECTS",
     data
   }
 }
-export function GetSub_SubjectsSuccess(data){
-  return{
+export function GetSub_SubjectsSuccess(data) {
+  return {
     type: "GET_SUB_SUBJECTS_SUCCESS",
     data
   }
 }
 
-export function GetAdverts(data){
-  return{
+export function GetAdverts(data) {
+  return {
     type: "GET_ADVERTS",
     data
   }
 }
-export function ShowIdAdverts(data){  
-  return{
+export function ShowIdAdverts(data) {
+  return {
     type: "SHOW_ID_ADVERTS",
     data
   }
 }
-export function GetAdvertsSuccess(data){
-  return{
+export function GetAdvertsSuccess(data) {
+  return {
     type: "GET_ADVERTS_SUCCESS",
     data
-  }  
+  }
 }
-export function ShowIdAdvertsSuccess(data){
-  return{
+export function ShowIdAdvertsSuccess(data) {
+  return {
     type: "SHOW_ID_ADVERTS_SUCCESS",
     data
-  }  
+  }
 }
-export function DeleteAdverts(data){
-  return{
+export function DeleteAdverts(data) {
+  return {
     type: "DELETE_ADVERTS",
     data
   }
 }
-export function DeleteAdvertsSuccess(data){
-  return{
+export function DeleteAdvertsSuccess(data) {
+  return {
     type: "DELETE_ADVERTS_SUCCESS",
     data
   }
-  
+
+}
+export function Search(data) {
+  return {
+    type: "SEARCH",
+    data
+  }
+}
+export function SearchSuccess(data) {
+  return {
+    type: "SEARCH_SUCCESS",
+    data
+  }
+}
+
+export function ChaveSuccess(data){
+  return{
+    type: "CHAVE_SUCCESS",
+    data
+  }
 }

@@ -26,11 +26,13 @@ router.get('/admin/materia', WithAuth, AdminController.showSubjects)
 router.post('/admin/submateria', WithAuth, AdminController.createSub_Subjects)
 router.get('/admin/submateria', WithAuth, AdminController.showSub_Subjects)
 
+router.get('/curso', CourseController.search)
 router.post('/curso', WithAuth, CourseController.create)
 router.get('/curso/:id', WithAuth, CourseController.show)
-router.get('/curso/show/:id', WithAuth, CourseController.showId)
+router.get('/curso/show/:id', CourseController.showId)
 router.put('/curso/:id', WithAuth, CourseController.edit)
 router.delete('/curso/:id', WithAuth, CourseController.delete)
+
 
 router.get('/search', WithAuth, SearchController.search)
 

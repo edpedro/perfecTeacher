@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
-import UpdateIcon from '@material-ui/icons/Update';
+import EditIcon from '@material-ui/icons/Edit';
 import Fab from '@material-ui/core/Fab';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -18,17 +18,20 @@ import { GetAdverts, DeleteAdverts, ShowIdAdverts } from '../../store/mdules/cou
 import history from '../../services/history'
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginLeft: 150
+  },
   grid1: {
     flexGrow: 1,
-    textAlign: 'center',   
+    textAlign: 'center',
   },
   grid2: {
     textAlign: 'center',
-    alignContent: 'center',  
+    alignContent: 'center',    
   },
   large: {
-    width: theme.spacing(10),
-    height: theme.spacing(10),
+    width: theme.spacing(15),
+    height: theme.spacing(15),
     marginLeft: 30,
   },
 }))
@@ -59,11 +62,11 @@ export default function Subpanel() {
   }
   function handleCreateCourse() {
 
-     dispatch(ShowIdAdverts())
+    dispatch(ShowIdAdverts())
 
     history.push("/course")
   }
-  function handleShowProfile(id){
+  function handleShowProfile(id) {
 
     dispatch(ShowIdAdverts(id))
     history.push("/profile")
@@ -98,13 +101,17 @@ export default function Subpanel() {
                     <Typography component="p">
                       {e.title}
                     </Typography>
-                    <Typography style={{ marginBottom: -20}} component="p">
-                      20/20/2020
-                  </Typography>
+                    <Typography component="p">
+                      {e.competence}
+                    </Typography>
+                    <Typography variant="button">
+                      {e.matter} - {e.subMatter}
+                    </Typography>
                     {user && user.image ?
                       <Avatar alt="Remy Sharp"
                         src={`http://localhost:3333/${user.image}`}
                         className={classes.large}
+                       
                       />
                       :
                       <Avatar alt="Remy Sharp" src="" className={classes.large} />
@@ -113,12 +120,11 @@ export default function Subpanel() {
                       <ListIcon style={{ color: "#01DF01" }} />
                     </Button>
                     <Button onClick={() => handleUpdate(e.id)}>
-                      <UpdateIcon style={{ color: "#0040FF" }} />
+                      <EditIcon style={{ color: "#0040FF" }} />
                     </Button>
                     <Button onClick={() => handleDelete(e.id)}>
                       <DeleteForeverIcon style={{ color: "#DF0101" }} />
                     </Button>
-
                   </CardContent>
                 </Card>
               </Grid>

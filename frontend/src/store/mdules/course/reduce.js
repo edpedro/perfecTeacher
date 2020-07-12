@@ -36,6 +36,18 @@ function course(state = [], action) {
         ...state,
         adverts: action.data,
       }
+    case "SEARCH_SUCCESS": 
+      return{
+        ...state,
+        search: action.data,
+       
+      }  
+      case "CHAVE_SUCCESS":
+      return{
+        ...state,
+        chave: action.data,
+       
+      }  
     default:
       return state
   }
