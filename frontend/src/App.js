@@ -15,7 +15,7 @@ function App() {
     <Provider store={store}>
       <Auth>
         <Router history={history}>
-          <Header />
+         <Header />
           <Routes />
         </Router>
       </Auth>

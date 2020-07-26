@@ -2,35 +2,56 @@ const connection = require('../database/connection')
 
 module.exports = {
   async order(req, res) {
-    const { courses_id, user_id } = req.body
+
+    const { course_id, user_id, name, data, address, cel, information, teacher_id } = req.body
+
     try {
       const orderPedi = await connection('order').insert({
-        courses_id,
-        user_id
+        course_id,
+        user_id,
+        name,
+        data,
+        address,
+        cel,
+        information,
+        teacher_id
       })
       res.status(200).json(orderPedi)
     } catch (error) {
+      console.log(error)
       res.status(500).json({ message: "Erro no pedido" })
     }
   },
   async show(req, res) {
-    const { id } = req.params
-    try {
-      const showOrder = await connection('order').where('order.id', '=', id)
-        .join('users', 'users.id', 'order.user_id')
-        .join('courses', 'courses.id', 'order.courses_id')
-        .select('order.*', 'users.name', 'courses.hourValue')
+    const { id } = req.params   
 
+    try {
+      const showOrder = await connection('order')
+        .where('order.teacher_id', '=', id)
+
+      const showAl = await connection('order')
+      .where('order.teacher_id', '=', id)
+      .join('users', 'users.id', '=', 'order.user_id')
+      .select('users.id', 'users.name', 'users.email', 'users.city', 'users.uf', 'users.image', 'users.type')
+
+      const showProf = await connection('order')
+        .where('order.user_id', '=', id)
+        .join('courses', 'courses.id', '=', 'order.course_id')
+        .join('users', 'users.id', '=', 'courses.user_id')
+        .select('users.id', 'users.name', 'users.email', 'users.city', 'users.uf', 'users.image','users.type')
 
       if (!showOrder) {
         res.status(400).json({ messsage: "Favor cadastrar pedido" })
+
+        return
       }
 
-      res.status(200).json(showOrder)
+      res.status(200).json({showOrder,showAl, showProf})
     } catch (error) {
-      res.status(400).json({ messsage: "Favor cadastrar pedido" })
+      res.status(400).json(error)
     }
   },
+
   async deleteOrder(req, res) {
     const { id } = req.body
 

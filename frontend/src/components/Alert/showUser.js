@@ -20,8 +20,8 @@ function AlertShow() {
   useEffect(() => {
     setTimeout(() => {
       dispatch(alertHideUserMessage())
-    }, 3500)
-  })
+    }, 2500)
+  }, [isShow, dispatch])
 
   return (
     <div className={classes.root}>

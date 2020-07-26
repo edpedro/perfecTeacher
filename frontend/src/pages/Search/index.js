@@ -19,7 +19,7 @@ import { ShowIdAdverts } from '../../store/mdules/course/actions'
 
 const useStyles = makeStyles((theme) => ({
   body: {
-    backgroundColor: '#5FCF80',
+    backgroundColor: '#69f0ae',
   },
   root: {
     marginTop: 70,
@@ -194,7 +194,11 @@ function PageSeach() {
                       <Paper className={classes.paperUn} key={profile.id}>
                         <Grid container wrap="nowrap" spacing={2}>
                           <Grid item>
-                            <Avatar alt="Remy Sharp" src={`http://localhost:3333/${profile.image}`} className={classes.large} style={{ textAlign: 'center' }} />
+                            {profile && profile
+                            ?<Avatar alt="Remy Sharp" src={`http://localhost:3333/${profile.image}`} className={classes.large} style={{ textAlign: 'center' }} />
+                            :<Avatar alt="Remy Sharp" src="" className={classes.large} style={{ textAlign: 'center' }} />
+                            }
+                            
                           </Grid>
                           <Grid item xs style={{ textAlign: 'center' }}>
                             <Box fontWeight="fontWeightBold" m={1}>
@@ -202,7 +206,7 @@ function PageSeach() {
                             </Box>
                             <Typography variant="h6">{profile.city} - {profile.uf}</Typography>
                             <Typography variant="subtitle1">{profile.title}</Typography>
-                            <Typography variant="h4">R${profile.webValue}/h</Typography>
+                            <Typography variant="h4">R${profile.hourValue}/h</Typography>
                             <Button variant="contained" color="secondary"
                               className={classes.button}
                               onClick={() => { handleShowProfile(profile.id) }}

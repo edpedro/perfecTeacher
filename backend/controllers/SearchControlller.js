@@ -1,24 +1,68 @@
 const connection = require('../database/connection')
+
 module.exports = {
+  
+    async search(req, res) {
+    const { search_query } = req.query
 
-  async search(req, res) {
-
-    const { page = 1 } = req.query
-    const [count] = await connection('courses').count()
+    console.log(search_query)
     try {
-      const search = await connection('courses')
-        .join('sub_subjects', 'sub_subjects.id', '=', 'courses.sub_subjects_id')
+      //Consultar no curso
+      const serach = await connection('courses')
+        .where('title', 'like', `%${search_query}%`)
+        .orWhere('competence', 'like', `%${search_query}%`)
         .join('users', 'users.id', '=', 'courses.user_id')
         .join('subjects', 'subjects.id', '=', 'courses.subjects_id')
-        .limit(6).offset((page - 1) * 6)
-        .select(['courses.*', 'sub_subjects.subMatter', 'subjects.matter',
-          'users.name', 'users.city', 'users.uf'])
+        .join('sub_subjects', 'sub_subjects.id', '=', 'courses.sub_subjects_id')
+        .select(['courses.*',
+          'sub_subjects.subMatter',
+          'subjects.matter',
+          'users.name',
+          'users.city',
+          'users.uf',
+          'users.image'])
 
-      res.header('X-Total-Count', count['count(*)'])
-      res.status(200).json(search)
+      if (serach.length <= 0) {
+        //Consultar na materia
+        const serachMatter = await connection('subjects')
+          .where('matter', 'like', `%${search_query}%`)
+          .join('users', 'users.id', '=', 'subjects.user_id')
+          .join('courses', 'courses.id', '=', 'courses.subjects_id')
+          .join('sub_subjects', 'sub_subjects.id', '=', 'courses.sub_subjects_id')
+          .select(['courses.*',
+            'sub_subjects.subMatter',
+            'subjects.matter',
+            'users.name',
+            'users.city',
+            'users.uf',
+            'users.image'])
+
+        if (serachMatter.length <= 0) {
+          //Consultar na sub materia
+          const serachSubMatter = await connection('sub_subjects')
+            .where('subMatter', 'like', `%${search_query}%`)
+            .join('users', 'users.id', '=', 'sub_subjects.user_id')
+            .join('courses', 'courses.id', '=', 'courses.sub_subjects_id')
+            .join('subjects', 'subjects.id', '=', 'courses.subjects_id')
+            .select(['courses.*',
+              'sub_subjects.subMatter',
+              'subjects.matter',
+              'users.name',
+              'users.city',
+              'users.uf',
+              'users.image'])
+
+          return res.status(200).json(serachSubMatter)
+
+        }
+        return res.status(200).json(serachMatter)
+      }
+    
+      return res.status(200).json(serach)
+      
+
     } catch (error) {
-      res.status(400).json({ message: "Erro na buscar" })
+      res.status(400).json({ message: "Não encontrado" })
     }
-
   }
 }

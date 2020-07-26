@@ -9,7 +9,8 @@ function users(state = [], action) {
       return {
         ...state,
         user: action.user,
-        id: action.user.id
+        id: action.user.id,
+        type: action.user.type 
       }
     case "LOGOUT_SUCCESS":
       return {
@@ -21,7 +22,7 @@ function users(state = [], action) {
         ...state,
         user: action.user,
         id: action.user.id,
-        teste: action.user.id
+        type: action.user.type        
       }
     case "UPLOAD_SUCCESS":
       return {

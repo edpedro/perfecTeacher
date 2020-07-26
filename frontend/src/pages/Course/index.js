@@ -91,7 +91,7 @@ export default function Course() {
   const user = useSelector(state => state.users.id)
   const course = useSelector(state => state.course.update) 
   const edit = course && course.id
-  console.log(course)
+ 
   const [data, setData] = useState({
     subjects_id: '',
     sub_subjects_id: '',

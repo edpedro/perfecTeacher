@@ -16,10 +16,10 @@ import { alertShowPanelMessage } from '../alert/actions'
 import api from '../../../services/api'
 import history from '../../../services/history'
 
-const token = localStorage.getItem('token')
+
 
 function* createCourse({ data, id }) {
-
+  const token = localStorage.getItem('token')
   try {
     const method = id ? api.put : api.post
     const url = id ? `curso/${data.id}` : `curso`
@@ -46,7 +46,7 @@ function* createCourse({ data, id }) {
 }
 
 function* GetSubject() {
-
+  const token = localStorage.getItem('token')
   try {
     const response = yield call(api.get, 'admin/materia', {
       headers: {
@@ -61,7 +61,7 @@ function* GetSubject() {
   }
 }
 function* GetSub_Subject() {
-
+  const token = localStorage.getItem('token')
   try {
     const response = yield call(api.get, 'admin/submateria', {
       headers: {
@@ -102,7 +102,7 @@ function* ShowIdAdvertisement({ data }) {
   }
 }
 function* DeleteAdvertisement({ data }) {
-
+  
   const token = localStorage.getItem('token')
   try {
     yield call(api.delete, `curso/${data}`, {
@@ -126,7 +126,7 @@ function* Search({ data }) {
   const search_query = data.search
   
   try {
-    const response = yield call(api.get, 'curso', {
+    const response = yield call(api.get, 'search', {
       params: {
         search_query
       }

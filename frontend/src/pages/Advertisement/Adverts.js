@@ -12,6 +12,7 @@ import Fab from '@material-ui/core/Fab';
 import Avatar from '@material-ui/core/Avatar';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ListIcon from '@material-ui/icons/List';
+import CardActions from '@material-ui/core/CardActions';
 
 import { GetAdverts, DeleteAdverts, ShowIdAdverts } from '../../store/mdules/course/actions'
 
@@ -19,7 +20,9 @@ import history from '../../services/history'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginLeft: 150
+    marginLeft: 150,
+    display: 'flex',
+    marginBottom: 10,
   },
   grid1: {
     flexGrow: 1,
@@ -27,16 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
   grid2: {
     textAlign: 'center',
-    alignContent: 'center',    
+    alignContent: 'center',
   },
   large: {
-    width: theme.spacing(15),
-    height: theme.spacing(15),
+    width: theme.spacing(13),
+    height: theme.spacing(13),
     marginLeft: 30,
   },
+  title: {
+    fontSize: 14,
+  },
+  card1: {
+    display: 'inline',
+    marginBottom: 12,
+    justifyItems: 'center'
+  }
 }))
 
-export default function Subpanel() {
+export default function Adverts() {
   const dispatch = useDispatch()
   const classes = useStyles();
   const data = useSelector(state => state.course.adverts)
@@ -91,46 +102,47 @@ export default function Subpanel() {
         </Grid>
       </Grid>
       {/* Segunda linha */}
-      <Grid container spacing={3}>
-        {data && data.map((e, key) => {
-          return (
-            <Grid item xs={12} sm={10} key={key}>
-              <Grid item xs={6} sm={12} className={classes.grid2}>
-                <Card className={classes.root} variant="outlined">
-                  <CardContent>
-                    <Typography component="p">
-                      {e.title}
-                    </Typography>
-                    <Typography component="p">
-                      {e.competence}
-                    </Typography>
-                    <Typography variant="button">
-                      {e.matter} - {e.subMatter}
-                    </Typography>
-                    {user && user.image ?
-                      <Avatar alt="Remy Sharp"
-                        src={`http://localhost:3333/${user.image}`}
-                        className={classes.large}
-                       
-                      />
-                      :
-                      <Avatar alt="Remy Sharp" src="" className={classes.large} />
-                    }
-                    <Button onClick={() => handleShowProfile(e.id)}>
-                      <ListIcon style={{ color: "#01DF01" }} />
-                    </Button>
-                    <Button onClick={() => handleUpdate(e.id)}>
-                      <EditIcon style={{ color: "#0040FF" }} />
-                    </Button>
-                    <Button onClick={() => handleDelete(e.id)}>
-                      <DeleteForeverIcon style={{ color: "#DF0101" }} />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          )
-        })}
+      <Grid container spacing={3}>        
+        {data && data.map((e, key) => (
+          <Card className={classes.root} key={key}>
+            <CardContent>
+              {user && user.image ?
+                <Avatar alt="Remy Sharp"
+                  src={`http://localhost:3333/${user.image}`}
+                  className={classes.large}
+                />
+                :
+                <Avatar alt="Remy Sharp" src="" className={classes.large} />
+              }
+            </CardContent>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {e.matter} - {e.subMatter}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {e.title}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {e.competence}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button onClick={() => handleShowProfile(e.id)}>
+                <ListIcon style={{ color: "#01DF01" }} />
+              </Button>
+              <Button onClick={() => handleUpdate(e.id)}>
+                <EditIcon style={{ color: "#0040FF" }} />
+              </Button>
+              <Button onClick={() => handleDelete(e.id)}>
+                <DeleteForeverIcon style={{ color: "#DF0101" }} />
+              </Button>
+            </CardActions>
+          </Card>
+
+        ))}
+
+
+
       </Grid>
     </Fragment>
   );

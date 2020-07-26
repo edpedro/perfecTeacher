@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSelector,useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { alertHideUserMessage } from '../../store/mdules/alert/actions'
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
@@ -22,7 +22,7 @@ function AlertShow() {
     setTimeout(() => {
       dispatch(alertHideUserMessage())
     }, 3500)
-  })
+  }, [isShow, dispatch])
 
   return (
     <div className={classes.root}>

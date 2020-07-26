@@ -27,8 +27,10 @@ function course(state = [], action) {
       }
       return {
         ...state,
+        id: action.data.id,       
         update: action.data,
-        showId: action.data
+        showId: action.data,
+        teacher: action.data.user_id
       }
         
     case "DELETE_ADVERTS_SUCCESS":

@@ -11,8 +11,7 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 
 export default function MainListItems() {
-  const user = useSelector(state => state.users.user)
-
+  const user = useSelector(state => state.users.user)  
   return (
     <div>
       <ListItem button>

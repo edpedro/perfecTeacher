@@ -1,14 +1,15 @@
 import React from 'react'
 
-
 import Dashboard from '../../components/Dashboard'
-import Adverts from './Adverts'
+import SubPanel from './SubPanel'
 
-export default function Advertisement() { 
+
+export default function Order() { 
+
   return (
     <div>
       <Dashboard>
-        <Adverts />
+        <SubPanel />
       </Dashboard>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -9,9 +10,11 @@ import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
 import Button from '@material-ui/core/Button';
 
+import { ShowIdAdverts } from '../../store/mdules/course/actions'
+
 const useStyles = makeStyles((theme) => ({
   body: {
-    backgroundColor: '#5FCF80'
+    background: '#69f0ae'
   },
   root: {
     marginTop: 70,
@@ -49,37 +52,69 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Profile() {
+  const dispatch = useDispatch()
+  const history = useHistory()
   const user = useSelector(state => state.users.user)
   const course = useSelector(state => state.course.showId)
+  const locaUse = localStorage.getItem('token')
+  // const order = JSON.stringify(course)
 
+  function handleOrder(id, courseId) {
+    if (parseInt(course.user_id) === id) {
+      alert("Ops..você não poder solicitar sua propia aula")
+      return
+    }
+    // localStorage.setItem('curso', order)
+    // localStorage.setItem('status', '0')
+    dispatch(ShowIdAdverts(courseId))
+    history.push('/pedido-aula')
+  }
+  function handleOrderCreate() {
+    history.push('/register')
+  }
 
   const classes = useStyles();
   return (
     <div className={classes.body}>
       <Container maxWidth="lg" className={classes.container}>
         <div className={classes.root}>
-
           {/* Primeiro card */}
           <Grid container wrap="nowrap" spacing={3}>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Grid container wrap="nowrap" spacing={2}>
                   <Grid item>
-                    <Avatar alt="Remy Sharp"
-                      src={`http://localhost:3333/${course && course.image}`}
-                      className={classes.large}
-                    />
+                    {course && course.image
+                      ?
+                      <Avatar alt="Remy Sharp"
+                        src={`http://localhost:3333/${course?.image}`}
+                        className={classes.large}
+                      />
+                      :
+                      <Avatar alt="Remy Sharp"
+                        src=''
+                        className={classes.large}
+                      />
+                    }
                   </Grid>
-                  <Grid item xs>
+                  <Grid item xs >
                     <Box fontWeight="fontWeightBold" m={1}>
                       <Typography variant="h4">{course && course.name}</Typography>
                     </Box>
                     <Typography variant="h6">{user && user.city} - {user && user.uf}</Typography>
                     <Typography variant="subtitle1">{course && course.title} - {course && course.competence}.</Typography>
                     <Typography variant="h4">R${course && course.hourValue} /h</Typography>
-                    <Button variant="outlined" className={classes.button}>
-                      Solicitar Aula
-                 </Button>
+                    {locaUse && locaUse
+                      ?
+                      <Button variant="outlined" onClick={() => handleOrder(user.id, course.id)} className={classes.button} >
+                        Solicitar Aula
+                      </Button>
+                      :
+                      <Button variant="outlined" onClick={() => handleOrderCreate()} className={classes.button} >
+                        Favor ser cadastrar
+                      </Button>
+                    }
+
                   </Grid>
                 </Grid>
               </Paper>
@@ -87,7 +122,7 @@ function Profile() {
           </Grid>
 
           {/* Segundo card */}
-          <Grid container spacing={3}>
+          <Grid container spacing={3} className={classes.body1}>
             <Grid item xs={3} style={{ textAlign: 'center' }}>
               <Paper className={classes.paperUn}>
                 <Box fontSize={25} fontWeight="fontWeightBold" className={classes.title} mb={2}>Níveis</Box>

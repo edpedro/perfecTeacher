@@ -7,9 +7,9 @@ const WithAuth = require('../private/auth')
 const UserController = require("../controllers/UserController")
 const AdminController = require('../controllers/AdminController')
 const CourseController = require('../controllers/CourseController')
-const SearchController = require('../controllers/SearchControlller')
 const TelaInitialController = require('../controllers/TelaInitialController')
 const OrderController = require('../controllers/OrderController')
+const SearchController = require('../controllers/SearchControlller')
 
 router.get('/', TelaInitialController.show)
 
@@ -26,18 +26,17 @@ router.get('/admin/materia', WithAuth, AdminController.showSubjects)
 router.post('/admin/submateria', WithAuth, AdminController.createSub_Subjects)
 router.get('/admin/submateria', WithAuth, AdminController.showSub_Subjects)
 
-router.get('/curso', CourseController.search)
 router.post('/curso', WithAuth, CourseController.create)
 router.get('/curso/:id', WithAuth, CourseController.show)
 router.get('/curso/show/:id', CourseController.showId)
 router.put('/curso/:id', WithAuth, CourseController.edit)
 router.delete('/curso/:id', WithAuth, CourseController.delete)
 
+router.get('/search', SearchController.search)
 
-router.get('/search', WithAuth, SearchController.search)
 
-router.post('/order', OrderController.order)
-router.delete('/order', OrderController.deleteOrder)
-router.get('/order/:id', OrderController.show)
+router.post('/order', WithAuth, OrderController.order)
+router.delete('/order',WithAuth, OrderController.deleteOrder)
+router.get('/order/:id',WithAuth, OrderController.show)
 
 module.exports = router;
