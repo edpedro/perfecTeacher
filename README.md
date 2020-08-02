@@ -56,7 +56,41 @@ $ npm start
 ## Imagens
 
 <h1 align="center">
-    <img src="frontend/public/photovis.jpg">
+    <img src="frontend/public/photo/foto1.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto2.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto3.png">
+</h1>
+
+<h1 align="center">
+    <img src="frontend/public/photo/foto4.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto5.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto6.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto7.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto8.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto9.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto10.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto11.png">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/photo/foto12.png">
 </h1>
 ---
 
