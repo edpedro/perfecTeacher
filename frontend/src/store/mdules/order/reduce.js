@@ -12,10 +12,12 @@ function order(state = [], action) {
       let showOrdes = []
       let showAls = []
       let showProfs = []
-      
+      let legt = 0
       for (var key of Object.keys(order)) {
         if (key === 'showOrder') {
           showOrdes.push(order[key][0])
+          legt = order[key].length
+         
         }
         if (key === 'showAl') {
           showAls.push(order[key][0])
@@ -29,7 +31,8 @@ function order(state = [], action) {
         ...state, 
         showOrdes,
         showAls,
-        showProfs      
+        showProfs,
+        legt      
       }
     default:
       return state

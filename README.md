@@ -4,7 +4,12 @@
 <h1 align="center">
     <img src="frontend/public/Principal.gif">
 </h1>
-
+<h1 align="center">
+    <img src="frontend/public/search.gif">
+</h1>
+<h1 align="center">
+    <img src="frontend/public/solicitar.gif">
+</h1>
 ## Sobre
 
 **PerfectTeacher** é uma plataforma para conectar professores e alunos, foi criado para praticar todo conteúdo estudado. 

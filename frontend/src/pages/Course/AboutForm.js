@@ -65,7 +65,7 @@ export default function AboutForm(props) {
             onChange={handleChange}
           />
         </Grid>
-        {user?.code === null && 
+        {user && user.code === null && 
           <>
             <Grid item xs={12} sm={6}>
               <TextField

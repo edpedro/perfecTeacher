@@ -8,6 +8,8 @@ exports.up = function (knex) {
     table.string('address')
     table.string('cel').notNullable()
     table.string('information').notNullable()
+    table.string('notifications').notNullable()
+    table.string('active').notNullable()
     table.string('teacher_id').notNullable()
     
     //course

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Dashboard from '../../components/Dashboard'
-import Grid from './grid'
+import Painel from './Painel'
 
 
 export default function Panel() { 
@@ -9,7 +9,7 @@ export default function Panel() {
   return (
     <div>
       <Dashboard>
-        <Grid />
+        <Painel />
       </Dashboard>
     </div>
   );

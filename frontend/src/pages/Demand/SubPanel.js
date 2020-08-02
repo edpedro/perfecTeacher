@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +15,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { getOrder } from '../../store/mdules/order/actions'
+import { getOrder, deleteOrder } from '../../store/mdules/order/actions'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +33,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SubPanel() {
   const dispacth = useDispatch()
-  const id = useSelector(state => state.users.id) 
+  const id = useSelector(state => state.users.id)
+  const user = useSelector(state => state.users.user)
   const showOrde = useSelector(state => state.order.showOrdes)
   const showAl = useSelector(state => state.order.showAls)
   const showProf = useSelector(state => state.order.showProfs)
@@ -42,7 +44,7 @@ export default function SubPanel() {
     if (id) {
       dispacth(getOrder(id))
     }
-
+    // eslint-disable-next-line
   }, [id, dispacth])
 
   const [open, setOpen] = React.useState(false);
@@ -54,133 +56,176 @@ export default function SubPanel() {
   const handleClose = () => {
     setOpen(false);
   };
+  function handleDelete(id) {
+    const resl = window.confirm("Ops...Deseja deletar esse Pedido")
+    if (resl) {
+      dispacth(deleteOrder(id))
+    }
+  }
+
   return (
     <Fragment>
-      <Grid container spacing={3}>
-        {showProf && showProf.map((prof, key) => {
-          if (prof) {
-            return (
-              <Card className={classes.root} key={key}>
-                <CardContent>
-                  {prof && prof.image
-                    ? <Avatar alt="Remy Sharp"
-                      src={`http://localhost:3333/${prof.image}`}
-                      className={classes.large}
-                    />
-                    :
-                    <Avatar alt="Remy Sharp"
-                      className={classes.large}
-                    />
-                  }
-                </CardContent>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {prof && prof.name}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    {prof && prof.city}  {prof && prof.uf}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {prof && prof.email}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button variant="outlined" color="secondary">
-                    Cancelar
+      {showOrde && showOrde[0] !== undefined
+        ?
+        <>
+          <Grid container spacing={3}>
+            {showProf && showProf.map((prof, key) => (
+              prof && prof.type === 'p' &&
+              <>
+                <Card className={classes.root} key={prof.id}>
+                  <CardContent>
+                    {prof && prof.image
+                      ? <Avatar alt="Remy Sharp"
+                        src={`http://localhost:3333/${prof.image}`}
+                        className={classes.large}
+                      />
+                      :
+                      <Avatar alt="Remy Sharp"
+                        className={classes.large}
+                      />
+                    }
+                  </CardContent>
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {prof && prof.name}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      {prof && prof.city}  {prof && prof.uf}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      {prof && prof.email}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button variant="outlined" color="primary">
+                      Enviar messagem
             </Button>
-                </CardActions>
-              </Card>
-            )
-          }
-        })}
-        {showAl && showAl.map((al, key) => {
-          if (al) {
-            return (
-              <Card className={classes.root} key={key}>
-                <CardContent>
-                  {al && al.image
-                    ? <Avatar alt="Remy Sharp"
-                      src={`http://localhost:3333/${al.image}`}
-                      className={classes.large}
-                    />
-                    :
-                    <Avatar alt="Remy Sharp"
-                      className={classes.large}
-                    />
-                  }
-                </CardContent>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {al && al.name}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    {al && al.city}  {al && al.uf}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {al && al.email}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button variant="outlined" onClick={handleClickOpen}>
-                    Exibir
-                  </Button>
-                  <Button variant="outlined" color="primary">
-                    Confirmar
-                  </Button>
-                  <Button variant="outlined" color="secondary">
-                    Cancelar
-                  </Button>
-                </CardActions>
-              </Card>
-            )
-          }
-        })}
-        <div>
-          {
-            showOrde && showOrde.map((or, key) => {
-              if (or) {
-                return (
-                  <Dialog
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    key={key}
-                  >
-                    <DialogTitle id="alert-dialog-title">{"Dados do aluno"}</DialogTitle>
-                    <DialogContent style={{ width: 400 }}>
-                      <DialogContentText id="alert-dialog-description" style={{ color: '#000000' }}>
-                        Esta aula é para
-                    </DialogContentText>
-                      <DialogContentText id="alert-dialog-description">
-                        {or && or.name}
-                      </DialogContentText>
-                      <DialogContentText id="alert-dialog-description" style={{ color: '#000000' }}>
-                        Data da primeira aula
-                    </DialogContentText>
-                      <DialogContentText id="alert-dialog-description">
-                        {or && or.data}
-                      </DialogContentText>
-                      <DialogContentText id="alert-dialog-description" style={{ color: '#000000' }}>
-                        Seus dados de contato
-                    </DialogContentText>
-                      <DialogContentText id="alert-dialog-description">
-                        {or && or.address}  {or && or.cel}
-                      </DialogContentText>
-                    </DialogContent>
+                    <Button variant="outlined" color="secondary" onClick={() => handleDelete(prof.id)}>
+                      Cancelar
+            </Button>
+                  </CardActions>
+                </Card>
+              </>
+            ))}
 
-                    <DialogActions>
-                      <Button onClick={handleClose} color="primary">
-                        Fechar
+            {showAl && showAl.map((al, key) => (
+              al && al.type === 'a' &&
+              <>
+                <Card className={classes.root} key={al.id}>
+                  <CardContent>
+                    {al && al.image
+                      ? <Avatar alt="Remy Sharp"
+                        src={`http://localhost:3333/${al.image}`}
+                        className={classes.large}
+                      />
+                      :
+                      <Avatar alt="Remy Sharp"
+                        className={classes.large}
+                      />
+                    }
+                  </CardContent>
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {al && al.name}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      {al && al.city}  {al && al.uf}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      {al && al.email}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                      Exibir
+                  </Button>
+                    <Button variant="outlined" color="primary">
+                      Confirmar
+                  </Button>
+                    <Button variant="outlined" color="secondary" onClick={() => handleDelete(al.id)}>
+                      Cancelar
+                  </Button>
+                  </CardActions>
+                </Card>
+              </>
+            ))}
+            <div>
+              {
+                showOrde && showOrde.map((or, key) => (
+                  <>
+                    <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                      key={or.id}
+                    >
+                      <DialogTitle id="alert-dialog-title">{"Dados do aluno"}</DialogTitle>
+                      <DialogContent style={{ width: 400 }}>
+                        <DialogContentText id="alert-dialog-description" style={{ color: '#000000' }}>
+                          Esta aula é para
+                    </DialogContentText>
+                        <DialogContentText id="alert-dialog-description">
+                          {or && or.name}
+                        </DialogContentText>
+                        <DialogContentText id="alert-dialog-description" style={{ color: '#000000' }}>
+                          Data da primeira aula
+                    </DialogContentText>
+                        <DialogContentText id="alert-dialog-description">
+                          {or && or.data}
+                        </DialogContentText>
+                        <DialogContentText id="alert-dialog-description" style={{ color: '#000000' }}>
+                          Seus dados de contato
+                    </DialogContentText>
+                        <DialogContentText id="alert-dialog-description">
+                          {or && or.address}  {or && or.cel}
+                        </DialogContentText>
+                      </DialogContent>
+
+                      <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                          Fechar
                </Button>
-                    </DialogActions>
-                  </Dialog>
-                )
+                      </DialogActions>
+                    </Dialog>
+                  </>
+                ))
               }
-            })
+            </div>
+          </Grid>
+        </>
+        :
+        <>
+          {showProf && showProf[0] === undefined &&
+            user && user.type === 'p' &&
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Não tem solicitação
+              </Typography>
+              </CardContent>
+            </Card>
           }
-        </div>
-      </Grid>    
+
+          {showAl && showAl[0] === undefined &&
+            user && user.type === 'a' &&
+            <Card className={classes.root}>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Solicite já sua AULA
+              </Typography>
+              </CardContent>
+              <CardActions>
+                <Link to="/search" style={{ textDecoration: 'none' }}>
+                  <Button variant="outlined" color="primary">
+                    Solicitar
+              </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          }
+        </>
+      }
     </Fragment>
   );
 }

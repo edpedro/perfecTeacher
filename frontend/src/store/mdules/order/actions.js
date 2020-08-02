@@ -22,3 +22,9 @@ export function getOrderSuccess(data){
     data
   }
 }
+export function deleteOrder(id){
+  return {
+    type: 'DELETE_ORDER',
+    id 
+  }
+}

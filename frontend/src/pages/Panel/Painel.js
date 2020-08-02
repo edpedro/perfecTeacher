@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function Subpanel() {
+export default function Painel() {
   const user = useSelector(state => state.users.user)
   const Anunci = useSelector(state => state.course.quant)
   const classes = useStyles();
@@ -53,10 +53,10 @@ export default function Subpanel() {
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  INFORMATICA
+                  {user && user.name}
                </Typography>
                 <Typography variant="subtitle1" color="textSecondary" component="p">
-                  Desenvolvedor web
+                  {user && user.city} - {user && user.uf}
           </Typography>               
               </CardContent>
             </CardActionArea>

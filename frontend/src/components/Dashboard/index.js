@@ -9,22 +9,21 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MenuItem from '@material-ui/core/MenuItem';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+
 import MainListItems from './MainListItems'
 import SecondaryListItems from './SecondaryListItems'
 
 
 import { alertHidePanelMessage } from '../../store/mdules/alert/actions'
 import AlertShow from '../Alert/showPanel'
-
+import Notifications from './Notifications'
 
 const drawerWidth = 240;
 
@@ -142,11 +141,12 @@ export default function Dashboard({ children }) {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Painel de controle
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={10} color="secondary">
+          <Notifications />
+          {/* <IconButton color="inherit">
+            <Badge badgeContent={1} color="secondary">
               <NotificationsIcon />
             </Badge>
-          </IconButton>
+          </IconButton> */}
           <MenuItem>
             <IconButton
               aria-label="account of current user"

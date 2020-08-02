@@ -36,7 +36,7 @@ router.get('/search', SearchController.search)
 
 
 router.post('/order', WithAuth, OrderController.order)
-router.delete('/order',WithAuth, OrderController.deleteOrder)
+router.delete('/order/:id',WithAuth, OrderController.deleteOrder)
 router.get('/order/:id',WithAuth, OrderController.show)
 
 module.exports = router;
